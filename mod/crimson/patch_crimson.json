@@ -1,7 +1,65 @@
 {
     "tribeData": {
         "crimson": {
-            "idx": -1
+            "idx": -1,
+            "color": 14352426,
+            "language": "chi,chri,cri,re,ea,ra,ae,nea,mea,chea,chae",
+            "startingUnit": "warrior",
+            "startingStars": 7,
+            "category": 2,
+            "startingTech":[
+                "basic"
+            ],
+            "startingResource": [
+                "fruit",
+                "fruit",
+                "game",
+                "game",
+                "metal",
+                "crop"
+            ],
+            "tribeAbilities": [
+                "alienclimate",
+                "spread",
+                "feed_tribeability"
+            ],
+            "techOverrides": {
+
+            },
+            "unitOverrides": {
+
+            },
+            "improvementOverrides": {
+
+            },
+            "cityRewardOverrides": {
+                "park": "catalyst_reward",
+                "bordergrowth": "doublegrowth_reward"
+            }
+        }
+    },
+    "cityRewardData": {
+        "catalyst_reward": {
+            "idx": -1,
+            "borderGrowthAmount": 1,
+            "addProduction": 1,
+            "scoreReward": 250,
+            "level": 4,
+            "hidden": true,
+            "persistence": "post"
+        },
+        "growth_reward": {
+            "idx": -1,
+            "borderGrowthAmount": 1,
+            "addProduction": 2,
+            "level": 0,
+            "hidden": true
+        },
+        "doublegrowth_reward": {
+            "idx": -1,
+            "borderGrowthAmount": 2,
+            "level": 3,
+            "hidden": true
         }
     }
 }

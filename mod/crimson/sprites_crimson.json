@@ -1,0 +1,38 @@
+{
+    "head_crimson_": {
+        "pixelsPerUnit": 4000,
+        "pivot": [0.55, 0.40]
+    },
+    "head_outline_crimson_": {
+        "pixelsPerUnit": 4000,
+        "pivot": [0.55, 0.40]
+    },
+    "field_crimson_": {
+        "pixelsPerUnit": 1030,
+        "pivot": [0.5, 0]
+    },
+    "forest_crimson_": {
+        "pixelsPerUnit": 1060,
+        "pivot": [0.5, 0.43]
+    },
+    "mountain_crimson_": {
+        "pixelsPerUnit": 1030,
+        "pivot": [0.5, -0.22]
+    },
+    "game_crimson_": {
+        "pixelsPerUnit": 1000,
+        "pivot": [0.5, 0.3]
+    },
+    "game_outline_crimson_": {
+        "pixelsPerUnit": 1000,
+        "pivot": [0.5, 0.3]
+    },
+    "fruit_crimson_": {
+        "pixelsPerUnit": 2500,
+        "pivot": [0.45, 0.3]
+    },
+    "fruit_outline_crimson_": {
+        "pixelsPerUnit": 2500,
+        "pivot": [0.45, 0.3]
+    }
+}
