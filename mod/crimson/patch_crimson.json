@@ -61,5 +61,10 @@
             "level": 3,
             "hidden": true
         }
+    },
+    "tribeAbility": {
+        "feed_tribeability": {
+            "idx": -1
+        }
     }
 }
