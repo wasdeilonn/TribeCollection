@@ -5,7 +5,7 @@ using Polytopia;
 using Polytopia.Data;
 using PolytopiaBackendBase.Common;
 
-namespace wasdTemplate;
+namespace TribeCollection;
 
 public static class Main
 {
@@ -13,7 +13,6 @@ public static class Main
     public static void Load(ManualLogSource logger)
     {
         modLogger = logger;
-        modLogger.LogInfo("wasdtemplate");
         Harmony.CreateAndPatchAll(typeof(Main));
     }
 }

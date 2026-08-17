@@ -1,15 +1,19 @@
 {
-    "id": "wasdtemplate",
-    "name": "wasdtemplate",
-    "version": "1.0",
+    "id": "tribecollection",
+    "name": "Tribe Collection",
+    "version": "0.1",
     "authors": [
-        "wasdtemplate"
+        "wasd_", "Whoever comes along the way"
     ],
     "dependencies": [
         {
             "id": "polytopia",
             "min": "2.10.0"
+        },
+        {
+            "id": "polibrary",
+            "min": "2.1.4.4"
         }
     ],
-    "description": "wasdtemplate"
+    "description": "Bottom text"
 }
