@@ -52,6 +52,7 @@
             "idx": -1,
             "borderGrowthAmount": 1,
             "addProduction": 2,
+            "scoreReward": 100,
             "level": 0,
             "hidden": true
         },
