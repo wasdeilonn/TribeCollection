@@ -6,6 +6,7 @@ using Polytopia.Data;
 using PolytopiaBackendBase.Common;
 using Polibrary.PolyScript;
 using Il2Gen = Il2CppSystem.Collections.Generic;
+using DG.Tweening;
 
 namespace TribeCollection;
 
@@ -64,6 +65,31 @@ public static class CrimsonMain
     }
 
     [HarmonyPrefix]
+    [HarmonyPatch(typeof(CaptureCommand), nameof(CaptureCommand.IsValid))]
+    private static bool CaptureValidation(CaptureCommand __instance, ref bool __result, GameState state, out string validationError)
+    {
+        if (
+            !state.TryGetPlayer(__instance.PlayerId, out var player) || 
+            !state.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
+            !tribeData.HasAbility(Feed)
+            
+        )
+        {
+            validationError = "";
+            return true;
+        }
+
+        if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < 2)
+        {
+            validationError = CommandBase.VALIDATION_ERROR_CANT_CAPTURE;
+            return false;
+        }
+
+        validationError = "";
+        return true;
+    }
+
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CaptureCityAction), nameof(CaptureCityAction.Execute))]
     private static bool FeedPatch(GameState state, CaptureCityAction __instance)
     {
@@ -84,6 +110,8 @@ public static class CrimsonMain
         player.cities++;
         Unfound(state, __instance.PlayerId, __instance.Coordinates);
         __instance.AddSubAction(new DestroyImprovementAction(player.Id, tile.coordinates));
+        __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state)));
+        __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 20));
         __instance.AddSubAction(new CityRewardAction(player.Id, Grow, player.GetCurrentCapitalCoordinates(state)));
         __instance.CommitSubActionsToStack(state.ActionStack);
         return false;
