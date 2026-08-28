@@ -47,6 +47,22 @@ public static class CrimsonMain
         }
     }
 
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(UnitState), nameof(UnitState.Create), typeof(GameState), typeof(byte), typeof(uint), typeof(UnitData), typeof(WorldCoordinates), typeof(WorldCoordinates))]
+    private static void UnitState_Create(ref UnitState __result, GameState gameState, byte playerId, uint currentTurn, UnitData unitData, WorldCoordinates coordinates, WorldCoordinates home)
+    {
+        if (
+            !gameState.TryGetPlayer(playerId, out var player) || 
+            !gameState.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
+            !tribeData.HasAbility(Feed)
+        )
+        {
+            return;
+        }
+
+        __result.home = WorldCoordinates.NULL_COORDINATES;
+    }
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(CaptureCityAction), nameof(CaptureCityAction.Execute))]
     private static bool FeedPatch(GameState state, CaptureCityAction __instance)
