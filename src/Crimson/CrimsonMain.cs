@@ -19,6 +19,7 @@ public static class CrimsonMain
         if (
             !EnumCache<TribeAbility.Type>.TryGetType("feed_tribeability", out Feed)
             || !EnumCache<CityReward>.TryGetType("growth_reward", out Grow)
+            || !EnumCache<TribeType>.TryGetType("crimson", out Crimson)
         )
         {
             Main.modLogger.LogError("cant get enum stuff for crimson");
@@ -28,6 +29,26 @@ public static class CrimsonMain
 
     public static TribeAbility.Type Feed;
     public static CityReward Grow;
+    public static TribeType Crimson;
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof (MapRenderContext))]
+    private static void TintRed(Tile __instance)
+    {
+        if (__instance.data.climate == Crimson)
+        {
+            if (
+                __instance.data.terrain == Polytopia.Data.TerrainData.Type.Water ||
+                __instance.data.terrain == Polytopia.Data.TerrainData.Type.Ocean ||
+                __instance.data.terrain == Polytopia.Data.TerrainData.Type.Ice
+                )
+            {
+                TerrainMaterialHelper.SetSpriteSaturated(__instance.terrainRenderer.SpriteRenderer, desaturated: true);
+                TerrainMaterialHelper.SetSpriteTint(__instance.terrainRenderer.spriteRenderer, new UnityEngine.Color(1, 0.4f, 0.4f));
+            }
+            
+        }
+    }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(ActionUtils), nameof(ActionUtils.GetCityArea))]
