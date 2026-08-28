@@ -106,7 +106,6 @@ public static class CrimsonMain
             return true;
         }
 
-        Main.modLogger.LogInfo("ye");
         player.cities++;
         Unfound(state, __instance.PlayerId, __instance.Coordinates);
         __instance.AddSubAction(new DestroyImprovementAction(player.Id, tile.coordinates));
@@ -143,6 +142,7 @@ public static class CrimsonMain
         }
         instance.SpawnDarkPuff();
         instance.SpawnEmbers();
+        instance.StopFire();
         instance.Sway();
         AudioManager.PlaySFXAtTile(SFXTypes.Parasite, instance.Coordinates, player.skinType);
         AudioManager.PlaySFXAtTile(SFXTypes.Explode, instance.Coordinates, player.skinType);
