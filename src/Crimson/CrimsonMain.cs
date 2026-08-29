@@ -32,7 +32,8 @@ public static class CrimsonMain
     public static TribeType Crimson;
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof (MapRenderContext))]
+    [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext))]
+    [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext), typeof(SkinVisualsTransientData))]
     private static void TintRed(Tile __instance)
     {
         if (__instance.data.climate == Crimson)
@@ -46,7 +47,14 @@ public static class CrimsonMain
                 TerrainMaterialHelper.SetSpriteSaturated(__instance.terrainRenderer.SpriteRenderer, desaturated: true);
                 TerrainMaterialHelper.SetSpriteTint(__instance.terrainRenderer.spriteRenderer, new UnityEngine.Color(1, 0.4f, 0.4f));
             }
-            
+            __instance.shoreline.north.Sprite = PolyMod.Registry.GetSprite("shoreline");
+            __instance.shoreline.north.Color = new Color(1, 0.2f, 0.2f);
+            __instance.shoreline.south.Sprite = PolyMod.Registry.GetSprite("shoreline");
+            __instance.shoreline.south.Color = new Color(1, 0.2f, 0.2f);
+            __instance.shoreline.west.Sprite = PolyMod.Registry.GetSprite("shoreline");
+            __instance.shoreline.west.Color = new Color(1, 0.2f, 0.2f);
+            __instance.shoreline.east.Sprite = PolyMod.Registry.GetSprite("shoreline");
+            __instance.shoreline.east.Color = new Color(1, 0.2f, 0.2f);
         }
     }
 

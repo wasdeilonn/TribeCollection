@@ -34,5 +34,49 @@
     "fruit_outline_crimson_": {
         "pixelsPerUnit": 2500,
         "pivot": [0.45, 0.3]
+    },
+    "shoreline__": {
+        "pixelsPerUnit": 193.09714,
+        "pivot": [0.5, 0.54793435]
+    },
+    "water_wall_left_wall_right_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "water_wall_left_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "water_wall_right_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "water_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "fish_crimson_": {
+        "pixelsPerUnit": 270.336,
+        "pivot": [0.52995265, 0.057698634]
+    },
+    "fish_outline_crimson_": {
+        "pixelsPerUnit": 100.571434,
+        "pivot": [0.5233482, 0.21068114]
+    },
+    "ocean_wall_left_wall_right_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "ocean_wall_left_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "ocean_wall_right_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
+    },
+    "ocean_crimson_": {
+        "pixelsPerUnit": 264.87515,
+        "pivot": [0.5, 0]
     }
 }
