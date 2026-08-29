@@ -57,11 +57,11 @@
     },
     "fish_crimson_": {
         "pixelsPerUnit": 270.336,
-        "pivot": [0.52995265, 0.057698634]
+        "pivot": [0.52995265, 0.5]
     },
     "fish_outline_crimson_": {
         "pixelsPerUnit": 100.571434,
-        "pivot": [0.5233482, 0.21068114]
+        "pivot": [0.5233482, 0.49839228]
     },
     "ocean_wall_left_wall_right_crimson_": {
         "pixelsPerUnit": 264.87515,
