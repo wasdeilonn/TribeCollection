@@ -7,8 +7,10 @@
             "startingUnit": "warrior",
             "startingStars": 7,
             "category": 2,
+            "bonus": 1,
             "startingTech":[
-                "basic"
+                "basic",
+                "trade"
             ],
             "startingResource": [
                 "fruit",
@@ -27,14 +29,13 @@
 
             },
             "unitOverrides": {
-
+                "rider": "jumpingspider_unit"
             },
             "improvementOverrides": {
-
+                "market": "cyst_improvement"
             },
             "cityRewardOverrides": {
-                "park": "catalyst_reward",
-                "bordergrowth": "doublegrowth_reward"
+                "park": "catalyst_reward"
             }
         }
     },
@@ -55,17 +56,67 @@
             "scoreReward": 100,
             "level": 0,
             "hidden": true
-        },
-        "doublegrowth_reward": {
-            "idx": -1,
-            "borderGrowthAmount": 2,
-            "level": 3,
-            "hidden": true
         }
     },
     "tribeAbility": {
         "feed_tribeability": {
             "idx": -1
+        }
+    },
+    "improvementData": {
+        "cyst_improvement": {
+            "idx": -1,
+            "cost": 15,
+            "adjacencyRequirements": [
+                {
+                    "improvement": "city"
+                },
+                {
+                    "improvement": "cyst_improvement"
+                }
+            ],
+            "canTrain": true,
+            "terrainRequirements": [
+				{
+					"terrain": "field"
+				},
+				{
+					"terrain": "mountain"
+				},
+				{
+					"terrain": "forest"
+				},
+				{
+					"terrain": "water"
+				}
+			],
+            "improvementAbilities": [
+                "cantrain_improvementability"
+            ]
+        }
+    },
+    "improvementAbility": {
+        "cantrain_improvementability": {
+            "idx": -1
+        }
+    },
+    "unitData": {
+        "jumpingspider_unit": {
+            "health": 50,
+            "defence": 10,
+            "movement": 2,
+            "range": 0,
+            "attack": 30,
+            "cost": 3,
+            "unitAbilities": [
+                "land",
+                "stomp",
+                "sneak",
+                "creep"
+            ],
+            "weapon": 7,
+            "idx": -1,
+            "prefab": "mooni"
         }
     }
 }

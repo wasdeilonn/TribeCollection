@@ -97,6 +97,24 @@ public static class CrimsonMain
         __result.home = WorldCoordinates.NULL_COORDINATES;
     }
 
+    [HarmonyPostfix]
+    [HarmonyPriority(Priority.Last)]
+    [HarmonyPatch(typeof(ActionUtils), nameof(ActionUtils.TrainUnit))]
+    private static void TrainUnit(GameState gameState, PlayerState playerState, TileData tile, UnitData unitData)
+    {
+        if (
+            !gameState.TryGetPlayer(playerState.Id, out var player) || 
+            !gameState.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
+            !tribeData.HasAbility(Feed)
+        )
+        {
+            return;
+        }
+
+        if (tile.unit != null)
+        tile.unit.home = WorldCoordinates.NULL_COORDINATES;
+    }
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(CaptureCommand), nameof(CaptureCommand.IsValid))]
     private static bool CaptureValidation(CaptureCommand __instance, ref bool __result, GameState state, out string validationError)
@@ -112,7 +130,7 @@ public static class CrimsonMain
             return true;
         }
 
-        if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < 2)
+        if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < 3)
         {
             validationError = CommandBase.VALIDATION_ERROR_CANT_CAPTURE;
             return false;
@@ -128,25 +146,47 @@ public static class CrimsonMain
     {
         TileData tile = state.Map.GetTile(__instance.Coordinates);
         state.TryGetPlayer(tile.owner, out var victim);
-
-        if (
+        TribeData victimTribe = null;
+        if (victim != null)
+        {
+            state.GameLogicData.TryGetData(victim.tribe, out victimTribe);
+        }
+        
+        if 
+        (
             !state.TryGetPlayer(__instance.PlayerId, out var player) || 
-            !state.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
-            !tribeData.HasAbility(Feed) ||
-            (victim != null && victim.GetCurrentCapitalCoordinates(state) == tile.coordinates)
+            !state.GameLogicData.TryGetData(player.tribe, out var tribeData)
         )
         {
             return true;
         }
+        
+        if (victim != null)
+        {
+            if (victimTribe.HasAbility(Feed))
+            {
+                foreach (TileData cityTile in victim.GetCityTiles(state))
+                {
+                    __instance.AddSubAction(new CaptureCityAction(player.Id, cityTile.coordinates, victim.Id));
+                }
+            }
+        }
 
-        player.cities++;
-        Unfound(state, __instance.PlayerId, __instance.Coordinates);
-        __instance.AddSubAction(new DestroyImprovementAction(player.Id, tile.coordinates));
-        __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state)));
-        __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 20));
-        __instance.AddSubAction(new CityRewardAction(player.Id, Grow, player.GetCurrentCapitalCoordinates(state)));
+        if (tribeData.HasAbility(Feed) && (victim == null || victim.GetCurrentCapitalCoordinates(state) != tile.coordinates))
+        {
+            player.cities++;
+            Unfound(state, __instance.PlayerId, __instance.Coordinates);
+            __instance.AddSubAction(new DestroyImprovementAction(player.Id, tile.coordinates));
+            __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state)));
+            __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 20));
+            __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 40));
+            __instance.AddSubAction(new CityRewardAction(player.Id, Grow, player.GetCurrentCapitalCoordinates(state)));
+            __instance.CommitSubActionsToStack(state.ActionStack);
+            return false;
+        }
+
         __instance.CommitSubActionsToStack(state.ActionStack);
-        return false;
+        return true;
     }
 
     [HarmonyPrefix]
@@ -163,6 +203,7 @@ public static class CrimsonMain
             (victim != null && victim.GetCurrentCapitalCoordinates(GameManager.GameState) == tile.coordinates)
         )
         {
+            onComplete.Invoke();
             return true;
         }
 
