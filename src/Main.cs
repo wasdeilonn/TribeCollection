@@ -16,5 +16,8 @@ public static class Main
         modLogger = logger;
         Harmony.CreateAndPatchAll(typeof(Main));
         Harmony.CreateAndPatchAll(typeof(Crimson.Main));
+        Harmony.CreateAndPatchAll(typeof(Crimson.UnitAbilityManager));
+        Harmony.CreateAndPatchAll(typeof(Crimson.Visual));
+        Harmony.CreateAndPatchAll(typeof(Crimson.FeedManager));
     }
 }

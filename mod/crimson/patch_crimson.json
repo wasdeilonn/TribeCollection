@@ -112,11 +112,26 @@
                 "land",
                 "stomp",
                 "sneak",
-                "creep"
+                "creep",
+                "jump_ability",
+                "doublemove_ability"
             ],
             "weapon": 7,
             "idx": -1,
             "prefab": "mooni"
+        }
+    },
+    "unitAbility":{
+        "jump_ability": {
+            "idx": -1
+        },
+        "doublemove_ability": {
+            "idx": -1
+        }
+    },
+    "unitEffect": {
+        "movecharged_effect": {
+            "idx": -1
         }
     }
 }
