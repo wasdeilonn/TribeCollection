@@ -5,12 +5,13 @@ using Polytopia;
 using Polytopia.Data;
 using PolytopiaBackendBase.Common;
 using Polibrary.PolyScript;
+using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
 
-namespace TribeCollection;
+namespace TribeCollection.Crimson;
 
-public static class CrimsonMain
+public static class Main
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameLogicData), nameof(GameLogicData.AddGameLogicPlaceholders))]
@@ -22,7 +23,7 @@ public static class CrimsonMain
             || !EnumCache<TribeType>.TryGetType("crimson", out Crimson)
         )
         {
-            Main.modLogger.LogError("cant get enum stuff for crimson");
+            M.modLogger.LogError("cant get enum stuff for crimson");
             return;
         }
     }
