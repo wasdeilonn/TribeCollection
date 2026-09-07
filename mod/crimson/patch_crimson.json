@@ -39,7 +39,7 @@
             }
         }
     },
-    "cityRewardData": {
+    "cityReward": {
         "catalyst_reward": {
             "idx": -1,
             "borderGrowthAmount": 1,
