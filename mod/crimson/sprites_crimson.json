@@ -8,16 +8,16 @@
         "pivot": [0.55, 0.40]
     },
     "field_crimson_": {
-        "pixelsPerUnit": 1030,
-        "pivot": [0.5, 0]
+        "pixelsPerUnit": 950,
+        "pivot": [0.5, 0.06]
     },
     "forest_crimson_": {
         "pixelsPerUnit": 1060,
         "pivot": [0.5, 0.43]
     },
     "mountain_crimson_": {
-        "pixelsPerUnit": 1030,
-        "pivot": [0.5, -0.22]
+        "pixelsPerUnit": 950,
+        "pivot": [0.5, -0.02]
     },
     "game_crimson_": {
         "pixelsPerUnit": 1000,
@@ -28,12 +28,12 @@
         "pivot": [0.5, 0.3]
     },
     "fruit_crimson_": {
-        "pixelsPerUnit": 2500,
-        "pivot": [0.45, 0.3]
+        "pixelsPerUnit": 1000,
+        "pivot": [0.5, 0.5]
     },
     "fruit_outline_crimson_": {
-        "pixelsPerUnit": 2500,
-        "pivot": [0.45, 0.3]
+        "pixelsPerUnit": 1000,
+        "pivot": [0.5, 0.5]
     },
     "shoreline__": {
         "pixelsPerUnit": 193.09714,
