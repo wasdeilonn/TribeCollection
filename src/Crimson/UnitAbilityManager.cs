@@ -14,18 +14,6 @@ namespace TribeCollection.Crimson;
 public static class UnitAbilityManager
 {
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(StartTurnAction), nameof(StartTurnAction.Execute))]
-    private static void DoubleMove_StartTurn(GameState state, StartTurnAction __instance)
-    {
-        foreach (TileData tile in state.Map.tiles)
-        {
-            if (tile.unit == null || !tile.unit.HasAbility(Main.DoubleMove)) continue;
-
-            tile.unit.AddEffect(Main.MoveCharged);
-        }
-    }
-
-    [HarmonyPostfix]
     [HarmonyPatch(typeof(MoveAction), nameof(MoveAction.Execute))]
     private static void DoubleMove_Move(GameState state, MoveAction __instance)
     {
@@ -35,9 +23,9 @@ public static class UnitAbilityManager
             return;
         }
 
-        if (unit.HasEffect(Main.MoveCharged))
+        if (unit.HasAbility(Main.DoubleMove) && unit.attacked == false)
         {
-            unit.RemoveEffect(Main.MoveCharged);
+            unit.attacked = true;
             unit.moved = false;
         }
     }

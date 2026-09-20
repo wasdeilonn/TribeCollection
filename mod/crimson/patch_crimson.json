@@ -91,12 +91,12 @@
 				}
 			],
             "improvementAbilities": [
-                "cantrain_improvementability"
+                "cantrain_visualimprovementability"
             ]
         }
     },
     "improvementAbility": {
-        "cantrain_improvementability": {
+        "cantrain_visualimprovementability": {
             "idx": -1
         }
     },
@@ -130,8 +130,6 @@
         }
     },
     "unitEffect": {
-        "movecharged_effect": {
-            "idx": -1
-        }
+        
     }
 }
