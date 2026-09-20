@@ -37,4 +37,5 @@ public static class Main
     public static UnitAbility.Type Jump;
     public static UnitAbility.Type DoubleMove;
     public static UnitEffect MoveCharged;
+    public const int CapturePopulation = 3;
 }

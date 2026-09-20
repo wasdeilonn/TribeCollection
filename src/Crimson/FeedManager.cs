@@ -81,7 +81,7 @@ public static class FeedManager
             return true;
         }
 
-        if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < 3)
+        if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < Main.CapturePopulation)
         {
             validationError = CommandBase.VALIDATION_ERROR_CANT_CAPTURE;
             return false;
@@ -154,7 +154,6 @@ public static class FeedManager
             (victim != null && victim.GetCurrentCapitalCoordinates(GameManager.GameState) == tile.coordinates)
         )
         {
-            onComplete.Invoke();
             return true;
         }
 
@@ -162,7 +161,6 @@ public static class FeedManager
 
         if (instance == null || instance.IsHidden == true)
         {
-            onComplete.Invoke();
             return false;
         }
         instance.SpawnDarkPuff();
