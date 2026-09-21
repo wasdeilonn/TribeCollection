@@ -49,6 +49,25 @@ public static class FeedManager
     }
 
     [HarmonyPostfix]
+    [HarmonyPatch(typeof(ConvertAction), nameof(ConvertAction.Execute))]
+    private static void ConvertAction_Execute(GameState state, ConvertAction __instance)
+    {
+        if (
+            !state.TryGetPlayer(__instance.PlayerId, out var player) || 
+            !state.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
+            !tribeData.HasAbility(Main.Feed)
+        )
+        {
+            return;
+        }
+
+        if (state.Map.GetTile(__instance.Target).unit != null)
+        {
+            state.Map.GetTile(__instance.Target).unit.home = WorldCoordinates.NULL_COORDINATES;
+        }
+    }
+
+    [HarmonyPostfix]
     [HarmonyPriority(Priority.Last)]
     [HarmonyPatch(typeof(ActionUtils), nameof(ActionUtils.TrainUnit))]
     private static void TrainUnit(GameState gameState, PlayerState playerState, TileData tile, UnitData unitData)
