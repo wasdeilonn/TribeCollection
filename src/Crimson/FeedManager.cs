@@ -123,7 +123,7 @@ public static class FeedManager
             }
         }
 
-        if (tribeData.HasAbility(Main.Feed) && (victim == null || victim.GetCurrentCapitalCoordinates(state) != tile.coordinates))
+        if (tribeData.HasAbility(Main.Feed) && (victim == null || victim.startTile != tile.coordinates))
         {
             player.cities++;
             Unfound(state, __instance.PlayerId, __instance.Coordinates);
