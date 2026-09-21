@@ -9,6 +9,7 @@ using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
 using Unity.Mathematics;
+using EnumsNET;
 
 namespace TribeCollection.Crimson;
 
@@ -46,34 +47,34 @@ public static class Visual
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(CityStatusProgressBar), nameof(CityStatusProgressBar.UpdateFields))]
-    public static void CityStatusProgressBar_UpdateFields(CityStatusProgressBar __instance)
+    [HarmonyPatch(typeof(CityStatusDisplay), nameof(CityStatusDisplay.SetCity))]
+    public static void CityStatusDisplay_SetCity(CityStatusDisplay __instance, City city)
     {
-        if (GameManager.LocalPlayer.tribe == Main.Crimson)
+        if (city != null && city.CapitalOf != null && city.CapitalOf.tribe == Main.Crimson)
         {
             Color fillColorFeed = Color.yellow;
             Color fillColor = Color.coral;
             Color fullColor = Color.softYellow;
-            Color baseColorFeed = __instance.baseColor;
+            Color baseColorFeed = __instance.progressBar.baseColor;
 
             baseColorFeed.r *= 0.5f;
             baseColorFeed.g *= 0.5f;
             baseColorFeed.b *= 0.5f;
 
             int i = 0;
-            foreach (CityStatusProgressSegment segment in __instance.segments)
+            foreach (CityStatusProgressSegment segment in __instance.progressBar.segments)
             {
                 bool filled = false;
                 bool negativeFilled = false;
                 bool full = false;
-                if (i < __instance.filledFields) filled = true;
-                if (__instance.filledFields < 0 && i < Math.Abs(__instance.filledFields)) negativeFilled = true;
-                if (__instance.filledFields >= 3) full = true;
+                if (i < __instance.progressBar.filledFields) filled = true;
+                if (__instance.progressBar.filledFields < 0 && i < Math.Abs(__instance.progressBar.filledFields)) negativeFilled = true;
+                if (__instance.progressBar.filledFields >= 3) full = true;
                 
                 
                 if (negativeFilled)
                 {
-                    segment.SetColor(__instance.negativeColor);
+                    segment.SetColor(__instance.progressBar.negativeColor);
                 }
                 else if (filled)
                 {
@@ -101,7 +102,7 @@ public static class Visual
                     }
                     else
                     {
-                        segment.SetColor(__instance.baseColor);
+                        segment.SetColor(__instance.progressBar.baseColor);
                     }
                 }
                 
