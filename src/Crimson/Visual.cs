@@ -8,8 +8,8 @@ using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
-using Unity.Mathematics;
-using EnumsNET;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 
 namespace TribeCollection.Crimson;
 

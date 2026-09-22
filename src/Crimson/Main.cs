@@ -23,7 +23,6 @@ public static class Main
             || !EnumCache<TribeType>.TryGetType("crimson", out Crimson)
             || !EnumCache<UnitAbility.Type>.TryGetType("jump_ability", out Jump)
             || !EnumCache<UnitAbility.Type>.TryGetType("doublemove_ability", out DoubleMove)
-            || !EnumCache<UnitEffect>.TryGetType("movecharged_effect", out MoveCharged)
         )
         {
             M.modLogger.LogError("cant get enum stuff for crimson");
