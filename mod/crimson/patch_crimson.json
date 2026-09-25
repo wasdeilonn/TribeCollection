@@ -3,7 +3,8 @@
         "crimson": {
             "idx": -1,
             "color": 14352426,
-            "language": "chi,chri,cri,re,ea,ra,ae,nea,mea,chea,chae",
+            "language": "chy,chry,cry,re,ea,ra,ae,nea,mea,chea,chae",
+            "leaderName": "Chrymea",
             "startingUnit": "warrior",
             "startingStars": 7,
             "category": 2,
