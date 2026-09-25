@@ -8,6 +8,7 @@ using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
+using Il2CppSystem.Net.NetworkInformation;
 
 namespace TribeCollection.Crimson;
 
@@ -144,7 +145,10 @@ public static class FeedManager
         if (tribeData.HasAbility(Main.Feed) && (victim == null || victim.startTile != tile.coordinates))
         {
             player.cities++;
-            Unfound(state, __instance.PlayerId, __instance.Coordinates);
+            UnfoundAction unfoundAction = PolibActionManager.MakeIl2CppAction<UnfoundAction>();
+            unfoundAction.Coordinates = __instance.Coordinates;
+            unfoundAction.PlayerId = __instance.PlayerId;
+            __instance.AddSubAction(unfoundAction);
             __instance.AddSubAction(new DestroyImprovementAction(player.Id, tile.coordinates));
             __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state)));
             __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 20));
@@ -201,68 +205,5 @@ public static class FeedManager
 
         GameManager.DelayCall(0.5f, onComplete);
         return false;
-    }
-
-    private static void Unfound(GameState state, byte playerId, WorldCoordinates wcoords)
-    {
-        TileData tile = state.Map.GetTile(wcoords);
-        byte previousOwnerId = tile.owner;
-        if (previousOwnerId == 0) return;
-
-        state.TryGetPlayer(previousOwnerId, out var playerState);
-
-        if (playerState != null)
-        {
-            playerState.cities--;
-        }
-
-        for (int i = 0; i < state.Map.Tiles.Length; i++)
-        {
-            TileData tileData = state.Map.Tiles[i];
-            if (tileData.unit != null && tileData.unit.home == wcoords)
-            {
-                tileData.unit.home = WorldCoordinates.NULL_COORDINATES;
-            }
-        }
-
-        Il2Gen.List<TileData> cityAreaSorted = ActionUtils.GetCityAreaSorted(state, tile);
-        List<ActionBase> scoreActions = new List<ActionBase>();
-
-        for (int j = 0; j < cityAreaSorted.Count; j++)
-        {
-            TileData territoryTile = cityAreaSorted[j];
-
-            if (territoryTile.owner == previousOwnerId)
-            {
-                int scoreValue = ScoreSheet.tileValue;
-                if (territoryTile.improvement != null && territoryTile.coordinates != tile.coordinates)
-                {
-                    scoreValue += state.CalculateImprovementScore(territoryTile);
-                }
-
-                scoreActions.Add(new DecreaseScoreAction(previousOwnerId, scoreValue));
-
-                territoryTile.owner = 0;
-                territoryTile.rulingCityCoordinates = WorldCoordinates.NULL_COORDINATES;
-            }
-        }
-
-        int cityCenterScore = state.CalculateImprovementScore(tile);
-        ActionUtils.AddScore(state, playerState, -cityCenterScore);
-        foreach (ActionBase ab in scoreActions)
-        {
-            state.ActionStack.Add(ab);
-        }
-
-        Polibrary.PolibUtils.RemoveEmbassies(state, tile);
-
-        tile.owner = 0;
-        
-        tile.improvement.level = 1;
-        
-        if (playerState != null && !playerState.IsAlive(state, state.Settings.rules.PlayerDeathCondition))
-        {
-            state.ActionStack.Add(new WipePlayerAction(playerId, previousOwnerId));
-        }
     }
 }

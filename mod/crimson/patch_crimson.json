@@ -111,8 +111,6 @@
             "unitAbilities": [
                 "land",
                 "stomp",
-                "sneak",
-                "creep",
                 "jump_ability",
                 "doublemove_ability"
             ],
@@ -131,5 +129,10 @@
     },
     "unitEffect": {
         
+    },
+    "actionType":{
+        "unfoundaction": {
+            "idx": -1
+        }
     }
 }

@@ -28,6 +28,9 @@ public static class Main
             M.modLogger.LogError("cant get enum stuff for crimson");
             return;
         }
+
+        PolibActionManager.RegisterAction<UnfoundAction>("unfoundaction");
+        PolibReactionManager.AssignReaction<UnfoundReaction>("unfoundaction");
     }
 
     public static TribeAbility.Type Feed;
