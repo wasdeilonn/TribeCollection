@@ -17,7 +17,8 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Main));
         Harmony.CreateAndPatchAll(typeof(Crimson.Main));
         Harmony.CreateAndPatchAll(typeof(Crimson.UnitAbilityManager));
-        Harmony.CreateAndPatchAll(typeof(Crimson.Visual));
+        Harmony.CreateAndPatchAll(typeof(Crimson.Visual.Misc));
+        Harmony.CreateAndPatchAll(typeof(Crimson.Visual.Jump));
         Harmony.CreateAndPatchAll(typeof(Crimson.FeedManager));
     }
 }
