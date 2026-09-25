@@ -65,8 +65,8 @@ public static class UnitAbilityManager
             }
             List<WorldCoordinates> list = new()
             {
-                start,
-                destination
+                destination,
+                start
             };
 
             __result = list.ToIl2List();
