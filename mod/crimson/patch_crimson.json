@@ -29,7 +29,9 @@
 
             },
             "unitOverrides": {
-                "rider": "jumpingspider_unit"
+                "rider": "jumpingspider_unit",
+                "rammership": "hullhugger_unit",
+                "scoutship": "blobfish_unit"
             },
             "improvementOverrides": {
                 "market": "cyst_improvement"
@@ -117,6 +119,45 @@
             "weapon": 7,
             "idx": -1,
             "prefab": "mooni"
+        },
+        "blobfish_unit": {
+            "health": 100,
+            "defence": 10,
+            "movement": 3,
+            "range": 2,
+            "attack": 20,
+            "cost": 5,
+            "unitAbilities": [
+                "water",
+                "swim",
+                "jump_ability",
+                "dash",
+                "escape"
+            ],
+            "movementTerrain":[
+                "water",
+                "ocean"
+            ],
+            "weapon": 14,
+            "idx": -1,
+            "prefab": "boomchi"
+        },
+        "hullhugger_unit": {
+            "health": 100,
+            "defence": 20,
+            "movement": 2,
+            "range": 1,
+            "attack": 35,
+            "cost": 5,
+            "unitAbilities": [
+                "amphibious",
+                "swim",
+                "dash",
+                "escape"
+            ],
+            "weapon": 7,
+            "idx": -1,
+            "prefab": "raychi"
         }
     },
     "unitAbility":{
