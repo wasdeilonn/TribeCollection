@@ -139,7 +139,7 @@ public static class Visual
     {
         if (__instance.unitData.HasAbility(Main.Jump))
         {
-            __instance.AnimatePathMoveJump(path, 0.6f, onComplete);
+            __instance.AnimatePathMoveJump(path, 0.55f, onComplete);
             return false;
         }
         return true;
@@ -158,9 +158,9 @@ public static class Visual
                     (
                         target, 
                         target.localPosition.y + 0.6f, 
-                        0.25f
+                        0.155f
                     ),
-                    Ease.OutQuart
+                    Ease.OutQuad
                 ), 
                 delay
             ),
@@ -172,9 +172,9 @@ public static class Visual
                     (
                         target, 
                         targetPos.y, 
-                        0.25f
+                        0.155f
                     ), 
-                    Ease.InQuart
+                    Ease.InQuad
                 );
             }
         );

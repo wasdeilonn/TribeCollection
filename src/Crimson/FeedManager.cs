@@ -89,15 +89,10 @@ public static class FeedManager
     [HarmonyPatch(typeof(CaptureCommand), nameof(CaptureCommand.IsValid))]
     private static bool CaptureValidation(CaptureCommand __instance, ref bool __result, GameState state, out string validationError)
     {
-        TileData tile = state.Map.GetTile(__instance.Coordinates);
-        state.TryGetPlayer(tile.owner, out var victim);
-        
         if (
             !state.TryGetPlayer(__instance.PlayerId, out var player) || 
             !state.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
-            !tribeData.HasAbility(Main.Feed) || 
-            (victim != null && victim.startTile != tile.coordinates)
-            
+            !tribeData.HasAbility(Main.Feed)
         )
         {
             validationError = "";
