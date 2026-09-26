@@ -105,4 +105,17 @@ public static class UnitAbilityManager
         }
         return true;
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(CommandUtils), nameof(CommandUtils.GetUnitActions))]
+    private static void AddCommands(ref Il2Gen.List<CommandBase> __result, GameState gameState, PlayerState player, TileData tile, bool includeUnavailable)
+    {
+        if (tile.unit != null && !tile.unit.attacked && !tile.unit.moved)
+        {
+            TransformCommand command = PolibCommandManager.MakeIl2CppCommand<TransformCommand>();
+            command.PlayerId = player.Id;
+            command.Coordinates = tile.coordinates;
+            CommandUtils.AddCommand(gameState, __result, command, includeUnavailable);
+        }
+    }
 }

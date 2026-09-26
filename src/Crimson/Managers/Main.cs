@@ -40,6 +40,10 @@ public static class Main
 
         PolibActionManager.RegisterAction<InfectAction>("infectaction");
         PolibReactionManager.AssignReaction<InfectReaction>("infectaction");
+
+        PolibCommandManager.RegisterCommand<TransformCommand>("transformcommand");
+        PolibActionManager.RegisterAction<TransformAction>("transformaction");
+        PolibReactionManager.AssignReaction<TransformReaction>("transformaction");
     }
 
     public static TribeAbility.Type Feed;

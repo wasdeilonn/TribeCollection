@@ -23,6 +23,8 @@ public class InfectAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
+        state.TryGetPlayer(PlayerId, out var playerState);
+
         TileData origin = state.Map.GetTile(Origin);
         TileData targetTile = state.Map.GetTile(Target);
 
@@ -47,7 +49,15 @@ public class InfectAction : PolibActionBase
                 leader.owner = PlayerId;
                 leader.home = WorldCoordinates.NULL_COORDINATES;
             }
-
+            if (target.passengerUnit != null)
+            {
+                target.passengerUnit.owner = PlayerId;
+                target.passengerUnit.home = WorldCoordinates.NULL_COORDINATES;
+            }
+            if (state.GameLogicData.TryGetData(target.type, out var data))
+            {
+                ActionUtils.ExploreFromTile(state, playerState, targetTile, data.GetSightRange(), shouldUseActions: true);
+            }
         }
     }
 

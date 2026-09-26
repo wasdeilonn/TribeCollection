@@ -168,12 +168,12 @@
             "defence": 20,
             "movement": 2,
             "range": 2,
-            "attack": 35,
-            "cost": 5,
+            "attack": 1,
+            "cost": 10,
+            "hidder": true,
             "unitAbilities": [
                 "land",
                 "dash",
-                "surprise",
                 "infect_ability"
             ],
             "weapon": 7,
@@ -200,6 +200,11 @@
             "idx": -1
         }
     },
+    "commandType": {
+        "transformcommand": {
+            "idx": -1
+        }
+    },
     "actionType":{
         "unfoundaction": {
             "idx": -1
@@ -208,6 +213,9 @@
             "idx": -1
         },
         "infectaction": {
+            "idx": -1
+        },
+        "transformaction": {
             "idx": -1
         }
     }
