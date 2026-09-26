@@ -127,7 +127,7 @@ public static class Jump
         }
         else
         {
-            GameManager.DelayCall(DURATION, onComplete);
+            GameManager.DelayCall(DURATION / 2, onComplete);
         }
     }
 }

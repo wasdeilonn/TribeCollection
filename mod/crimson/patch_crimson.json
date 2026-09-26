@@ -113,13 +113,13 @@
             "cost": 3,
             "unitAbilities": [
                 "land",
-                "stomp",
+                "impact_ability",
                 "jump_ability",
                 "doublemove_ability"
             ],
             "weapon": 7,
             "idx": -1,
-            "prefab": "mooni"
+            "prefab": "wbasic"
         },
         "blobfish_unit": {
             "health": 100,
@@ -167,6 +167,9 @@
         },
         "doublemove_ability": {
             "idx": -1
+        },
+        "impact_ability": {
+            "idx": -1
         }
     },
     "unitEffect": {
@@ -174,6 +177,9 @@
     },
     "actionType":{
         "unfoundaction": {
+            "idx": -1
+        },
+        "impactaction": {
             "idx": -1
         }
     }

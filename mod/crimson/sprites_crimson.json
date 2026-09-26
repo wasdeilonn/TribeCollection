@@ -78,5 +78,17 @@
     "ocean_crimson_": {
         "pixelsPerUnit": 264.87515,
         "pivot": [0.5, 0]
+    },
+    "body_jumpingspider_unit_crimson_": {
+        "pixelsPerUnit": 1800,
+        "pivot": [0.5, 0.5]
+    },
+    "body_jumpingspider_unit_crimson_outline_": {
+        "pixelsPerUnit": 1500,
+        "pivot": [0.5, 0.5]
+    },
+    "body_tint_jumpingspider_unit_crimson_": {
+        "pixelsPerUnit": 1800,
+        "pivot": [0.5, 0.5]
     }
 }
