@@ -30,8 +30,7 @@ public class ImpactReaction : PolibReactionBase
 
     public override WorldCoordinates GetCameraFocusCoordinates()
     {
-        GameManager.GameState.TryGetPlayer(action.PlayerId, out var player);
-        return player.GetCurrentCapitalCoordinates(GameManager.GameState);
+        return action.Coordinates;
     }
 
     public override void Execute(Il2CppSystem.Action onComplete)

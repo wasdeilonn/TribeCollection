@@ -32,7 +32,8 @@
             "unitOverrides": {
                 "rider": "jumpingspider_unit",
                 "rammership": "hullhugger_unit",
-                "scoutship": "blobfish_unit"
+                "scoutship": "blobfish_unit",
+                "giant": "chrymeaseed_unit"
             },
             "improvementOverrides": {
                 "market": "cyst_improvement"
@@ -161,6 +162,24 @@
             "weapon": 7,
             "idx": -1,
             "prefab": "raychi"
+        },
+        "chrymeaseed_unit": {
+            "health": 100,
+            "defence": 20,
+            "movement": 2,
+            "range": 2,
+            "attack": 35,
+            "cost": 5,
+            "unitAbilities": [
+                "land",
+                "dash",
+                "surprise",
+                "jump_ability",
+                "infect_ability"
+            ],
+            "weapon": 7,
+            "idx": -1,
+            "prefab": "ciru"
         }
     },
     "unitAbility":{
@@ -172,16 +191,24 @@
         },
         "impact_ability": {
             "idx": -1
+        },
+        "infect_ability": {
+            "idx": -1
         }
     },
     "unitEffect": {
-        
+        "infected_effect": {
+            "idx": -1
+        }
     },
     "actionType":{
         "unfoundaction": {
             "idx": -1
         },
         "impactaction": {
+            "idx": -1
+        },
+        "infectaction": {
             "idx": -1
         }
     }

@@ -87,4 +87,22 @@ public static class UnitAbilityManager
             __result = list.ToIl2List();
         }
     }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(AttackCommand), nameof(AttackCommand.Execute))]
+    private static bool InfectPatch(GameState state, AttackCommand __instance)
+    {
+        TileData origin = state.Map.GetTile(__instance.Origin);
+
+        if (origin.unit.HasAbility(Main.Infect))
+        {
+            InfectAction infectAction = PolibActionManager.MakeIl2CppAction<InfectAction>();
+            infectAction.Origin = __instance.Origin;
+            infectAction.Target = __instance.Target;
+            infectAction.PlayerId = __instance.PlayerId;
+            state.ActionStack.Add(infectAction);
+            return false;
+        }
+        return true;
+    }
 }

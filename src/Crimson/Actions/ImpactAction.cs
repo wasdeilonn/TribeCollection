@@ -21,8 +21,6 @@ public class ImpactAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
-        M.modLogger.LogInfo("impacted");
-
         state.TryGetPlayer(PlayerId, out var playerState);
 
         TileData origin = state.Map.GetTile(Coordinates);

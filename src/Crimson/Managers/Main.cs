@@ -24,6 +24,8 @@ public static class Main
             || !EnumCache<UnitAbility.Type>.TryGetType("jump_ability", out Jump)
             || !EnumCache<UnitAbility.Type>.TryGetType("doublemove_ability", out DoubleMove)
             || !EnumCache<UnitAbility.Type>.TryGetType("impact_ability", out Impact)
+            || !EnumCache<UnitAbility.Type>.TryGetType("infect_ability", out Infect)
+            || !EnumCache<UnitEffect>.TryGetType("infected_effect", out Infected)
         )
         {
             M.modLogger.LogError("cant get enum stuff for crimson");
@@ -35,6 +37,9 @@ public static class Main
 
         PolibActionManager.RegisterAction<ImpactAction>("impactaction");
         PolibReactionManager.AssignReaction<ImpactReaction>("impactaction");
+
+        PolibActionManager.RegisterAction<InfectAction>("infectaction");
+        PolibReactionManager.AssignReaction<InfectReaction>("infectaction");
     }
 
     public static TribeAbility.Type Feed;
@@ -43,5 +48,7 @@ public static class Main
     public static UnitAbility.Type Jump;
     public static UnitAbility.Type DoubleMove;
     public static UnitAbility.Type Impact;
+    public static UnitAbility.Type Infect;
+    public static UnitEffect Infected;
     public const int CapturePopulation = 3;
 }
