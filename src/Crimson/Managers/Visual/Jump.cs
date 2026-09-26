@@ -9,7 +9,7 @@ namespace TribeCollection.Crimson.Visual;
 
 public static class Jump
 {
-    public const float DURATION = 0.55f;
+    public const float DURATION = 0.5f;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MoveReaction), nameof(MoveReaction.Execute))]
