@@ -137,7 +137,9 @@
             ],
             "movementTerrain":[
                 "water",
-                "ocean"
+                "ocean",
+                "wetland",
+                "mangrove"
             ],
             "weapon": 14,
             "idx": -1,

@@ -16,7 +16,7 @@ public static class UnitAbilityManager
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MoveAction), nameof(MoveAction.Execute))]
-    private static void DoubleMove_Move(GameState state, MoveAction __instance)
+    private static void MovePatch(GameState state, MoveAction __instance)
     {
         if (!state.TryGetUnit(__instance.UnitId, out var unit))
         {
@@ -24,11 +24,26 @@ public static class UnitAbilityManager
             return;
         }
 
-        if (unit.HasAbility(Main.DoubleMove) && unit.attacked == false)
+        if (__instance.subActions != null)
+        {
+            __instance.subActions.Clear();
+        }
+
+        if (__instance.Reason != MoveAction.MoveReason.Push && unit.HasAbility(Main.Impact) && unit.attacked == false)
+        {
+            ImpactAction impactAction = PolibActionManager.MakeIl2CppAction<ImpactAction>();
+            impactAction.PlayerId = __instance.PlayerId;
+            impactAction.Coordinates = __instance.Path[0];
+            __instance.AddSubAction(impactAction);
+        }
+
+        if (__instance.Reason != MoveAction.MoveReason.Push && unit.HasAbility(Main.DoubleMove) && unit.attacked == false)
         {
             unit.attacked = true;
             unit.moved = false;
         }
+
+        __instance.CommitSubActionsToStack(state.ActionStack);
     }
 
     [HarmonyPostfix]
