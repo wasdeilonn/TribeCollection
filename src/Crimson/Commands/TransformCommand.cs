@@ -1,6 +1,7 @@
 using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
+using UnityEngine;
 
 namespace TribeCollection.Crimson;
 public class TransformCommand : PolibCommandBase
@@ -10,7 +11,10 @@ public class TransformCommand : PolibCommandBase
     public TransformCommand() {}
     public override void ExecuteNew(GameState state)
     {
-        
+        TransformAction action = PolibActionManager.MakeIl2CppAction<TransformAction>();
+        action.PlayerId = PlayerId;
+        action.Coordinates = Coordinates;
+        state.ActionStack.Add(action);
     }
     public override bool IsValid(GameState state, out string validationError)
     {

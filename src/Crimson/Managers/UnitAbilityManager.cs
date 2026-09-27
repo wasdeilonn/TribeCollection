@@ -110,12 +110,22 @@ public static class UnitAbilityManager
     [HarmonyPatch(typeof(CommandUtils), nameof(CommandUtils.GetUnitActions))]
     private static void AddCommands(ref Il2Gen.List<CommandBase> __result, GameState gameState, PlayerState player, TileData tile, bool includeUnavailable)
     {
-        if (tile.unit != null && !tile.unit.attacked && !tile.unit.moved)
+        if (tile.unit != null && !tile.unit.attacked && !tile.unit.moved && tile.unit.HasEffect(Main.Infected))
         {
             TransformCommand command = PolibCommandManager.MakeIl2CppCommand<TransformCommand>();
             command.PlayerId = player.Id;
             command.Coordinates = tile.coordinates;
             CommandUtils.AddCommand(gameState, __result, command, includeUnavailable);
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(UnitDataExtensions), nameof(UnitDataExtensions.HasAbility), typeof(UnitState), typeof(UnitAbility.Type))]
+    private static void DemotivateInfected(this UnitState unit, UnitAbility.Type ability, ref bool __result)
+    {
+        if (unit.HasEffect(Main.Infected) && ability == EnumCache<UnitAbility.Type>.GetType("polib_demotivate"))
+        {
+            __result = true;
         }
     }
 }

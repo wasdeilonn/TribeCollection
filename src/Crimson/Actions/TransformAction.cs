@@ -2,6 +2,7 @@ using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using I2.Loc;
+using Polytopia.Data;
 
 namespace TribeCollection.Crimson;
 
@@ -22,7 +23,11 @@ public class TransformAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
-        
+        TileData tile = state.Map.GetTile(Coordinates);
+        state.TryGetPlayer(PlayerId, out var playerState);
+        state.GameLogicData.TryGetData(EnumCache<UnitData.Type>.GetType("chrymeavessel_unit"), out var data);
+
+        tile.unit = ActionUtils.TrainUnit(state, playerState, tile, data);
     }
 
     public override void Serialize(Il2CppSystem.IO.BinaryWriter writer, int version)
