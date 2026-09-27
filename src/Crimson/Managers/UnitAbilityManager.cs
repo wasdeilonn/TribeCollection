@@ -9,6 +9,7 @@ using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
 using Polibrary;
+using ClipperLib;
 
 namespace TribeCollection.Crimson;
 
@@ -123,9 +124,23 @@ public static class UnitAbilityManager
     [HarmonyPatch(typeof(UnitDataExtensions), nameof(UnitDataExtensions.HasAbility), typeof(UnitState), typeof(UnitAbility.Type))]
     private static void DemotivateInfected(this UnitState unit, UnitAbility.Type ability, ref bool __result)
     {
-        if (unit.HasEffect(Main.Infected) && ability == EnumCache<UnitAbility.Type>.GetType("polib_demotivate"))
+        if (unit != null && unit.HasEffect(Main.Infected) && ability == EnumCache<UnitAbility.Type>.GetType("polib_demotivate"))
         {
             __result = true;
+        }
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(KillUnitAction), nameof(KillUnitAction.Execute))]
+    private static void SpawnSeedOnInfectedKill(GameState gameState, KillUnitAction __instance)
+    {
+        TileData tile = gameState.Map.GetTile(__instance.Coordinates);
+        UnitState unit = tile.unit;
+        gameState.GameLogicData.TryGetData(unit.type, out var data);
+        gameState.TryGetPlayer(__instance.PlayerId, out var playerState);
+        if (unit != null && unit.HasEffect(Main.Infected))
+        {
+            ActionUtils.TrainUnit(gameState, playerState, tile, data);
         }
     }
 }

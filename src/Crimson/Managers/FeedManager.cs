@@ -183,6 +183,7 @@ public static class FeedManager
 
         if (instance == null || instance.IsHidden == true)
         {
+            onComplete.Invoke();
             return false;
         }
         instance.SpawnDarkPuff();
