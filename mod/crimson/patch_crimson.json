@@ -56,7 +56,7 @@
         "growth_reward": {
             "idx": -1,
             "borderGrowthAmount": 1,
-            "addProduction": 2,
+            "addProduction": 1,
             "scoreReward": 100,
             "level": 0,
             "hidden": true
@@ -180,22 +180,6 @@
             "weapon": 7,
             "idx": -1,
             "prefab": "ciru"
-        },
-        "chrymeavessel_unit": {
-            "health": 300,
-            "defence": 30,
-            "movement": 1,
-            "range": 1,
-            "attack": 40,
-            "cost": 10,
-            "hidden": true,
-            "unitAbilities": [
-                "fly",
-                "dash"
-            ],
-            "weapon": 7,
-            "idx": -1,
-            "prefab": "swordsman"
         }
     },
     "unitAbility":{
