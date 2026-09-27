@@ -92,6 +92,7 @@ public static class FeedManager
     {
         if (
             !state.TryGetPlayer(__instance.PlayerId, out var player) || 
+            !state.TryGetUnit(__instance.UnitId, out var unit) || 
             !state.GameLogicData.TryGetData(player.tribe, out var tribeData) || 
             !tribeData.HasAbility(Main.Feed)
         )
@@ -101,6 +102,11 @@ public static class FeedManager
         }
 
         if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < Main.CapturePopulation)
+        {
+            validationError = CommandBase.VALIDATION_ERROR_CANT_CAPTURE;
+            return false;
+        }
+        if (unit.HasEffect(Main.Infected))
         {
             validationError = CommandBase.VALIDATION_ERROR_CANT_CAPTURE;
             return false;

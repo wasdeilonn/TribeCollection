@@ -53,6 +53,7 @@ public class InfectAction : PolibActionBase
             {
                 target.passengerUnit.owner = PlayerId;
                 target.passengerUnit.home = WorldCoordinates.NULL_COORDINATES;
+                target.passengerUnit.AddEffect(Main.Infected);
             }
             if (state.GameLogicData.TryGetData(target.type, out var data))
             {

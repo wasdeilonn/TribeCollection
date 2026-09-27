@@ -25,9 +25,11 @@ public class TransformAction : PolibActionBase
     {
         TileData tile = state.Map.GetTile(Coordinates);
         state.TryGetPlayer(PlayerId, out var playerState);
-        state.GameLogicData.TryGetData(EnumCache<UnitData.Type>.GetType("chrymeavessel_unit"), out var data);
+        state.GameLogicData.TryGetData(EnumCache<UnitData.Type>.GetType("chrymeaseed_unit"), out var data);
 
         tile.unit = ActionUtils.TrainUnit(state, playerState, tile, data);
+        tile.unit.attacked = true;
+        tile.unit.moved = true;
     }
 
     public override void Serialize(Il2CppSystem.IO.BinaryWriter writer, int version)

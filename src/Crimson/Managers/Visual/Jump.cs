@@ -17,7 +17,6 @@ public static class Jump
     {
         if (!GameManager.GameState.TryGetUnit(__instance.action.UnitId, out var unit))
         {
-            M.modLogger.LogError("good one jackass");
             return;
         }
 
@@ -25,7 +24,12 @@ public static class Jump
         {
             Tile origin = GameManager.GameState.Map.GetTile(__instance.action.Path[__instance.action.Path.Count - 1]).GetInstance();
             Tile target = GameManager.GameState.Map.GetTile(__instance.action.Path[0]).GetInstance();
-            origin.Sway();
+
+            if (origin != null && !origin.IsHidden)
+            {
+                origin.Sway();
+            }
+
             target.Unit.swayTween = JumpSway(target.Unit.spriteContainer);
         }
     }

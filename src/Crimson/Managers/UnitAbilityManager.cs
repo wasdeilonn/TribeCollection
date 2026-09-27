@@ -136,11 +136,11 @@ public static class UnitAbilityManager
     {
         TileData tile = gameState.Map.GetTile(__instance.Coordinates);
         UnitState unit = tile.unit;
-        gameState.GameLogicData.TryGetData(unit.type, out var data);
+        gameState.GameLogicData.TryGetData(EnumCache<UnitData.Type>.GetType("chrymeaseed_unit"), out var data);
         gameState.TryGetPlayer(__instance.PlayerId, out var playerState);
         if (unit != null && unit.HasEffect(Main.Infected))
         {
-            ActionUtils.TrainUnit(gameState, playerState, tile, data);
+            tile.unit = ActionUtils.TrainUnit(gameState, playerState, tile, data);
         }
     }
 }
