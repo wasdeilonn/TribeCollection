@@ -31,19 +31,6 @@ public static class Main
             M.modLogger.LogError("cant get enum stuff for crimson");
             return;
         }
-
-        PolibActionManager.RegisterAction<UnfoundAction>("unfoundaction");
-        PolibReactionManager.AssignReaction<UnfoundReaction>("unfoundaction");
-
-        PolibActionManager.RegisterAction<ImpactAction>("impactaction");
-        PolibReactionManager.AssignReaction<ImpactReaction>("impactaction");
-
-        PolibActionManager.RegisterAction<InfectAction>("infectaction");
-        PolibReactionManager.AssignReaction<InfectReaction>("infectaction");
-
-        PolibCommandManager.RegisterCommand<TransformCommand>("transformcommand");
-        PolibActionManager.RegisterAction<TransformAction>("transformaction");
-        PolibReactionManager.AssignReaction<TransformReaction>("transformaction");
     }
 
     public static TribeAbility.Type Feed;

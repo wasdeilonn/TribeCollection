@@ -203,21 +203,30 @@
     },
     "commandType": {
         "transformcommand": {
-            "idx": -1
+            "idx": -1,
+            "command": "TribeCollection.Crimson.TransformCommand"
         }
     },
     "actionType":{
         "unfoundaction": {
-            "idx": -1
+            "idx": -1,
+            "action": "TribeCollection.Crimson.UnfoundAction",
+            "reaction": "TribeCollection.Crimson.UnfoundReaction"
         },
         "impactaction": {
-            "idx": -1
+            "idx": -1,
+            "action": "TribeCollection.Crimson.ImpactAction",
+            "reaction": "TribeCollection.Crimson.ImpactReaction"
         },
         "infectaction": {
-            "idx": -1
+            "idx": -1,
+            "action": "TribeCollection.Crimson.InfectAction",
+            "reaction": "TribeCollection.Crimson.InfectReaction"
         },
         "transformaction": {
-            "idx": -1
+            "idx": -1,
+            "action": "TribeCollection.Crimson.TransformAction",
+            "reaction": "TribeCollection.Crimson.TransformReaction"
         }
     }
 }

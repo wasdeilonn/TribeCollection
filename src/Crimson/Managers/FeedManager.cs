@@ -151,7 +151,7 @@ public static class FeedManager
         if (tribeData.HasAbility(Main.Feed) && (victim == null || victim.startTile != tile.coordinates))
         {
             player.cities++;
-            UnfoundAction unfoundAction = PolibActionManager.MakeIl2CppAction<UnfoundAction>();
+            CAR.New<UnfoundAction>(out var unfoundAction);
             unfoundAction.Coordinates = __instance.Coordinates;
             unfoundAction.PlayerId = __instance.PlayerId;
             __instance.AddSubAction(unfoundAction);

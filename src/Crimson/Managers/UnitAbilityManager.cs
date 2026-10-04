@@ -32,7 +32,7 @@ public static class UnitAbilityManager
 
         if (__instance.Reason != MoveAction.MoveReason.Push && unit.HasAbility(Main.Impact) && unit.attacked == false)
         {
-            ImpactAction impactAction = PolibActionManager.MakeIl2CppAction<ImpactAction>();
+            CAR.New<ImpactAction>(out var impactAction);
             impactAction.PlayerId = __instance.PlayerId;
             impactAction.Coordinates = __instance.Path[0];
             __instance.AddSubAction(impactAction);
@@ -97,7 +97,7 @@ public static class UnitAbilityManager
 
         if (origin.unit.HasAbility(Main.Infect))
         {
-            InfectAction infectAction = PolibActionManager.MakeIl2CppAction<InfectAction>();
+            CAR.New<InfectAction>(out var infectAction);
             infectAction.Origin = __instance.Origin;
             infectAction.Target = __instance.Target;
             infectAction.PlayerId = __instance.PlayerId;
@@ -113,7 +113,7 @@ public static class UnitAbilityManager
     {
         if (tile.unit != null && !tile.unit.attacked && !tile.unit.moved && tile.unit.HasEffect(Main.Infected))
         {
-            TransformCommand command = PolibCommandManager.MakeIl2CppCommand<TransformCommand>();
+            CAR.New<TransformCommand>(out var command);
             command.PlayerId = player.Id;
             command.Coordinates = tile.coordinates;
             CommandUtils.AddCommand(gameState, __result, command, includeUnavailable);

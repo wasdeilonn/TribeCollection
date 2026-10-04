@@ -11,7 +11,7 @@ public class TransformCommand : PolibCommandBase
     public TransformCommand() {}
     public override void ExecuteNew(GameState state)
     {
-        TransformAction action = PolibActionManager.MakeIl2CppAction<TransformAction>();
+        CAR.New<TransformAction>(out var action);
         action.PlayerId = PlayerId;
         action.Coordinates = Coordinates;
         state.ActionStack.Add(action);
