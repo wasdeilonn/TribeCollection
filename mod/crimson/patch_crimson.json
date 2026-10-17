@@ -156,6 +156,7 @@
             "hidden": true,
             "unitAbilities": [
                 "land",
+                "stiff",
                 "dash",
                 "creep",
                 "infect_ability"
