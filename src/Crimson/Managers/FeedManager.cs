@@ -9,6 +9,7 @@ using M = TribeCollection.Main;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using DG.Tweening;
 using Il2CppSystem.Net.NetworkInformation;
+using Il2CppSystem.Xml;
 
 namespace TribeCollection.Crimson;
 
@@ -160,6 +161,10 @@ public static class FeedManager
             __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 20));
             __instance.AddSubAction(new DecreasePopulationAction(player.Id, player.GetCurrentCapitalCoordinates(state), 40));
             __instance.AddSubAction(new CityRewardAction(player.Id, Main.Grow, player.GetCurrentCapitalCoordinates(state)));
+            tile.SetResource(new ResourceState()
+            {
+                type = Main.Residue
+            });
             __instance.CommitSubActionsToStack(state.ActionStack);
             return false;
         }

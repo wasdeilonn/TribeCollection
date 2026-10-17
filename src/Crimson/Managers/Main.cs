@@ -26,6 +26,7 @@ public static class Main
             || !EnumCache<UnitAbility.Type>.TryGetType("impact_ability", out Impact)
             || !EnumCache<UnitAbility.Type>.TryGetType("infect_ability", out Infect)
             || !EnumCache<UnitEffect>.TryGetType("infected_effect", out Infected)
+            || !EnumCache<ResourceData.Type>.TryGetType("residue_resource", out Residue)
         )
         {
             M.modLogger.LogError("cant get enum stuff for crimson");
@@ -41,5 +42,6 @@ public static class Main
     public static UnitAbility.Type Impact;
     public static UnitAbility.Type Infect;
     public static UnitEffect Infected;
+    public static ResourceData.Type Residue;
     public const int CapturePopulation = 3;
 }

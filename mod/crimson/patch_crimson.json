@@ -70,28 +70,11 @@
     "improvementData": {
         "cyst_improvement": {
             "idx": -1,
-            "cost": 10,
-            "adjacencyRequirements": [
-                {
-                    "improvement": "city"
-                },
-                {
-                    "improvement": "cyst_improvement"
-                }
-            ],
+            "cost": 5,
             "canTrain": true,
             "terrainRequirements": [
 				{
-					"terrain": "field"
-				},
-				{
-					"terrain": "mountain"
-				},
-				{
-					"terrain": "forest"
-				},
-				{
-					"terrain": "water"
+					"resource": "residue_resource"
 				}
 			],
             "improvementAbilities": [
@@ -132,9 +115,9 @@
             "unitAbilities": [
                 "water",
                 "swim",
-                "jump_ability",
                 "dash",
-                "escape"
+                "escape",
+                "jump_ability"
             ],
             "movementTerrain":[
                 "water",
@@ -194,11 +177,38 @@
         },
         "infect_ability": {
             "idx": -1
+        },
+        "jump_ability/doublemove_ability/impact_ability/infect_ability": {
+            "bgColorStates": {
+				"defaultColor": [0.8,0.5,0.5,1],
+				"highlightedColor": [0,0,0,2],
+				"hoverColor": [0,0,0,2],
+				"highlightedHoverColor": [0,0,0,2],
+				"disabledColor": [0,0,0,2]
+			},
+			"labelColorStates": {
+				"defaultColor": [0,0,0,1],
+				"highlightedColor": [0,0,0,2],
+				"hoverColor": [0,0,0,2],
+				"highlightedHoverColor": [0,0,0,2],
+				"disabledColor": [0,0,0,2]
+			}
         }
     },
     "unitEffect": {
         "infected_effect": {
             "idx": -1
+        }
+    },
+    "resourceData": {
+        "residue_resource": {
+            "idx": -1,
+            "resourceTerrainRequirements": [
+                "field",
+                "forest",
+                "mountain",
+                "water"
+			]
         }
     },
     "commandType": {
