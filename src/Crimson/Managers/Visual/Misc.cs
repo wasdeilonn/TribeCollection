@@ -13,6 +13,7 @@ using DG.Tweening.Plugins.Options;
 using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using UnityEngine.SocialPlatforms;
 
 namespace TribeCollection.Crimson.Visual;
 
@@ -110,6 +111,42 @@ public static class Misc
                 }
                 
                 i++;
+            }
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(InteractionBar), nameof(InteractionBar.AddUnitActionButtons))]
+    private static void InteractionBar_AddUnitActionButtons(InteractionBar __instance, Il2Gen.List<CommandBase> availableActions)
+    {
+        GameState state = GameManager.GameState;
+        PlayerState player = GameManager.LocalPlayer;
+        if (!state.GameLogicData.TryGetData(player.tribe, out var tribe) || !tribe.HasAbility(Main.Feed))
+        {
+            return;
+        }
+        
+        CaptureCommand c = new CaptureCommand();
+        foreach (UIRoundButton button in __instance.buttons)
+        {
+            if 
+            (
+                button.text == string.Format
+                (
+                    Localization.Get("action.info." + c.Id), 
+                    Localization.GetSkinned(__instance.tile.GetVisualSkinTypeForTile().ToString(), __instance.unit.unitData.displayName)
+                )
+            )
+            {
+                if (button.buttonActive == false)
+                {
+                    if (state.Map.GetTile(player.GetCurrentCapitalCoordinates(state)).improvement.xp < Main.CapturePopulation)
+                    {
+                        button.buttonExpensive = true;
+                        button.Cost = 3;
+                        //button.resourceWidget.icon = ;
+                    }
+                }
             }
         }
     }
