@@ -1,0 +1,120 @@
+{
+    "tribeData": {
+        "sylth": {
+            "idx": -1,
+            "color": 4722296,
+            "language": "boo",
+            "startingUnit": "vessel_unit",
+            "startingStars": 5,
+            "category": 2,
+            "bonus": 0,
+            "startingTech":[
+                "basic",
+                "one_tech"
+            ],
+            "startingResource": [
+                "fruit",
+                "fruit"
+            ],
+            "tribeAbilities": [
+                "alienclimate",
+                "incorporeal_tribeability"
+            ],
+            "techOverrides": {
+                "fishing": "one_tech"
+            },
+            "unitOverrides": {
+                
+            },
+            "improvementOverrides": {
+
+            },
+            "cityRewardOverrides": {
+
+            }
+        }
+    },
+    "tribeAbility": {
+        "incorporeal_tribeability": {
+            "idx": -1
+        }
+    },
+    "tileEffect": {
+        "veiled_tileeffect": {
+            "idx": -1
+        }
+    },
+    "unitData": {
+        "vessel_unit": {
+            "health": 100,
+            "defence": 20,
+            "movement": 2,
+            "range": 0,
+            "attack": 20,
+            "cost": 5,
+            "unitAbilities": [
+                "land",
+                "dash",
+                "veil_ability"
+            ],
+            "weapon": 7,
+            "idx": -1,
+            "prefab": "warrior"
+        }
+    },
+    "unitAbility": {
+        "veil_ability": {
+            "idx": -1
+        }
+    },
+    "techData": {
+        "one_tech":{
+            "idx": -1,
+            "cost": 1,
+            "techUnlocks": [
+                "twoa_tech",
+                "twob_tech"
+            ],
+            "unitUnlocks": [
+                "vessel_unit"
+            ]
+        },
+        "twoa_tech":{
+            "idx": -1,
+            "cost": 2,
+            "techUnlocks": [
+                "threea_tech"
+            ]
+        },
+        "twob_tech":{
+            "idx": -1,
+            "cost": 2,
+            "techUnlocks": [
+                "threeb_tech"
+            ]
+        },
+        "threea_tech":{
+            "idx": -1,
+            "cost": 3
+        },
+        "threeb_tech":{
+            "idx": -1,
+            "cost": 3
+        }
+    },
+    "commandType": {
+
+    },
+    "actionType":{
+        "veiltileaction": {
+            "idx": -1,
+            "action": "TribeCollection.Sylth.VeilTileAction",
+            "reaction": "TribeCollection.Sylth.VeilTileReaction"
+        },
+        "unveiltileaction": {
+            "idx": -1,
+            "action": "TribeCollection.Sylth.UnveilTileAction",
+            "reaction": "TribeCollection.Sylth.UnveilTileReaction"
+        }
+    }
+}
