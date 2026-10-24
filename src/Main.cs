@@ -19,6 +19,7 @@ public static class Main
 
         Harmony.CreateAndPatchAll(typeof(Sylth.Main));
         Harmony.CreateAndPatchAll(typeof(Sylth.VeilManager));
+        Harmony.CreateAndPatchAll(typeof(Sylth.InvisibilityManager));
         Harmony.CreateAndPatchAll(typeof(Sylth.Visual.TileFX));
     }
 

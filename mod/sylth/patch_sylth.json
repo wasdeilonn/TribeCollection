@@ -115,6 +115,11 @@
             "idx": -1,
             "action": "TribeCollection.Sylth.UnveilTileAction",
             "reaction": "TribeCollection.Sylth.UnveilTileReaction"
+        },
+        "changevisibilityaction": {
+            "idx": -1,
+            "action": "TribeCollection.Sylth.ChangeVisibilityAction",
+            "reaction": "TribeCollection.Sylth.ChangeVisibilityReaction"
         }
     }
 }

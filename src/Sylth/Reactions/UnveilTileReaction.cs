@@ -39,7 +39,7 @@ public class UnveilTileReaction : PolibReactionBase
         if (instance != null && !instance.IsHidden)
         {
             instance.Render();
-
+            instance.Sway();
             onComplete.Invoke();
         }
         else
