@@ -21,6 +21,17 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Sylth.VeilManager));
         Harmony.CreateAndPatchAll(typeof(Sylth.InvisibilityManager));
         Harmony.CreateAndPatchAll(typeof(Sylth.Visual.TileFX));
+
+        Harmony.CreateAndPatchAll(typeof(Ancients.Main));
+        Harmony.CreateAndPatchAll(typeof(Ancients.ChargeManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.ConductionManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.LightningManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.PushManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.TechManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.RewardManager));
+        PolyMod.Loader.AddPatchDataType("sfx", typeof(SFXTypes));
+        PolyMod.Loader.AddPatchDataType("improvementEffect", typeof(ImprovementEffect));
     }
 
     [HarmonyPrefix]
