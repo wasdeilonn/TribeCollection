@@ -25,6 +25,7 @@ public class ChangeVisibilityAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
+        M.modLogger.LogInfo("executed");
         TileData tile = state.Map.GetTile(Coordinates);
 
         if (tile.unit == null) return;

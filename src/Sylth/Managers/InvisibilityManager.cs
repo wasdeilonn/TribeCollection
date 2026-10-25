@@ -14,8 +14,8 @@ public static class InvisibilityManager
     [HarmonyPatch(typeof(MoveCommand), nameof(MoveCommand.Execute))]
     private static void MoveVeil(GameState gameState, MoveCommand __instance)
     {
-        if (gameState.TryGetUnit(__instance.UnitId, out var unit)) return;
-        if (gameState.TryGetPlayer(unit.owner, out var player)) return;
+        if (!gameState.TryGetUnit(__instance.UnitId, out var unit)) return;
+        if (!gameState.TryGetPlayer(unit.owner, out var player)) return;
         
         if (player.HasTribeAbility(Main.Incorporeal, gameState))
         {
