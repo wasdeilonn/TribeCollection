@@ -3,7 +3,7 @@
     "name": "Tribe Collection",
     "version": "0.1",
     "authors": [
-        "wasd_", "Whoever comes along the way"
+        "wasd_", "mxkeljii (johnklipi)"
     ],
     "dependencies": [
         {
@@ -12,8 +12,8 @@
         },
         {
             "id": "polibrary",
-            "min": "2.1.4.4"
+            "min": "2.1.5"
         }
     ],
-    "description": "Bottom text"
+    "description": "A few tribes by wasd_ and co."
 }

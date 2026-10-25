@@ -68,19 +68,23 @@
         "pixelsPerUnit": 1450,
         "pivot": [0.5, 0.2]
     },
-    "weapon_club_ancwarrior_ancients_": {
+    "weapon_club_ancwarrior__": {
         "pixelsPerUnit": 3100,
         "pivot": [1, 0]
     },
-    "weapon_bow_ancarcher_ancients_": {
+    "weapon_club_ancrider__": {
+        "pixelsPerUnit": 3100,
+        "pivot": [1, 0]
+    },
+    "weapon_bow_ancarcher__": {
         "pixelsPerUnit": 1800,
         "pivot": [0.2, 0.425]
     },
-    "weapon_club_ancrailcannon__": {
+    "weapon_club_ancrailgunner__": {
         "pixelsPerUnit": 1500,
         "pivot": [0.2, 0.65]
     },
-    "weapon_club_ancrailcannon_outline__": {
+    "weapon_club_ancrailgunner_outline__": {
         "pixelsPerUnit": 1500,
         "pivot": [0.2, 0.65]
     },

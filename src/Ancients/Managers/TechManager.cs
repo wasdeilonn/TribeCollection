@@ -89,8 +89,7 @@ public static class TechManager
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(ActionUtils), nameof(ActionUtils.LearnTech))]
-    private static void ActionUtils_LearnTech(GameState gameState,
-        PlayerState playerState, TechData.Type type, int cost, bool shouldUseActions)
+    private static void ActionUtils_LearnTech(GameState gameState, PlayerState playerState, TechData.Type type, int cost, bool shouldUseActions)
     {
         bool? hasFreeTech = HasFreeTech(gameState, playerState);
         if(hasFreeTech == null)

@@ -39,10 +39,10 @@
                 "warrior": "ancwarrior",
                 "giant": "none",
                 "dagger": "ancdagger",
-                "catapult": "ancteslatower",
+                "catapult": "ancrailgunner",
                 "knight": "ancspark",
-                "archer": "ancrailcannon",
-                "rider": "anclancer",
+                "archer": "ancarcher",
+                "rider": "ancrider",
                 "defender": "ancsentry",
                 "swordsman": "ancaccumulator"
             },
@@ -112,7 +112,7 @@
             "weapon": 1,
             "prefab": "warrior"
         },
-        "anclancer": {
+        "ancrider": {
             "idx": -1,
             "health": 100,
             "defence": 10,
@@ -125,20 +125,12 @@
                 "dash",
                 "escape",
                 "fortify",
-                "capacitor_ability"
+                "charge_ability"
             ],
             "weapon": 1,
-            "prefab": "rider",
-            "maxCharge": 2,
-            "chargeConsumptionAmount": 2,
-            "chargeConsumptionEvent": [
-                "attack"
-            ],
-            "chargeBuff": [
-                "attack"
-            ]
+            "prefab": "rider"
         },
-        "ancteslatower": {
+        "ancrailgunner": {
             "idx": -1,
             "health": 100,
             "defence": 0,
@@ -151,8 +143,8 @@
                 "static",
                 "capacitor_ability"
             ],
-            "weapon": 5,
-            "prefab": "catapult",
+            "weapon": 6,
+            "prefab": "warrior",
 
             "maxCharge": 2,
             "chargeConsumptionAmount": 2,
@@ -210,31 +202,23 @@
             "maxCharge": 2,
             "chargeConsumptionAmount": 1
         },
-        "ancrailcannon": {
+        "ancarcher": {
             "health": 100,
 			"defence": 10,
 			"movement": 1,
 			"range": 2,
 			"attack": 20,
 			"cost": 3,
-			"weapon": 6,
+			"weapon": 2,
 			"unitAbilities": [
-				"stiff",
 				"land",
                 "dash",
-                "capacitor_ability"
+                "fortify",
+                "charge_ability"
 			],
-            "maxCharge": 2,
-            "chargeConsumptionAmount": 2,
-            "chargeConsumptionEvent": [
-                "attack"
-            ],
-            "chargeBuff": [
-                "attack"
-            ],
 			"idx": -1,
 
-            "prefab": "warrior"
+            "prefab": "archer"
         },
         "ancspark": {
             "health": 50,

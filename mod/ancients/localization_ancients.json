@@ -5,17 +5,14 @@
     "unit_names_ancwarrior": {
         "English": "Lightning Warrior"
     },
-    "unit_names_anclancer": {
-        "English": "Lancer"
+    "unit_names_ancrider": {
+        "English": "Lightning Rider"
     },
     "unit_names_ancarcher": {
         "English": "Lightning Archer"
     },
-    "unit_names_ancrailcannon": {
+    "unit_names_ancrailgunner": {
         "English": "Railgunner"
-    },
-    "unit_names_ancteslatower": {
-        "English": "Tesla Coil"
     },
     "unit_names_ancaccumulator": {
         "English": "Accumulator"
@@ -77,6 +74,12 @@
     },
     "tooltip_ability_push__ability": {
         "English": "This unit can push enemies away."
+    },
+    "unit_abilities_protect__ability": {
+        "English": "PROTECT"
+    },
+    "tooltip_ability_protect__ability": {
+        "English": "This unit can absorb nearby damage."
     },
 
 
