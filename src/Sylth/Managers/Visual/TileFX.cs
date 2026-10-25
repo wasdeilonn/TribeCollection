@@ -25,7 +25,7 @@ public static class TileFX
     {
         if (__instance.data.HasEffect(Main.Veiled))
         {
-            TerrainMaterialHelper.SetSpriteTint(__instance.terrainRenderer.SpriteRenderer, new Color(0.6f, 0f, 0.8f, 0.5f));
+            TerrainMaterialHelper.SetSpriteTint(__instance.terrainRenderer.SpriteRenderer, new Color(0.4f, 0f, 0.6f, 0.5f));
             TerrainMaterialHelper.SetSpriteTint(__instance.mountainRenderer, new Color(0.6f, 0f, 0.8f, 0.5f));
             TerrainMaterialHelper.SetSpriteTint(__instance.forestRenderer, new Color(0.6f, 0f, 0.8f, 0.5f));
             if (__instance.Resource != null)

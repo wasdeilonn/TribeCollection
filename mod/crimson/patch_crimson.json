@@ -108,16 +108,15 @@
         "blobfish_unit": {
             "health": 100,
             "defence": 10,
-            "movement": 3,
+            "movement": 2,
             "range": 2,
-            "attack": 20,
+            "attack": 40,
             "cost": 5,
             "unitAbilities": [
                 "water",
                 "swim",
-                "dash",
                 "escape",
-                "jump_ability"
+                "doublemove_ability"
             ],
             "movementTerrain":[
                 "water",
@@ -147,11 +146,11 @@
             "prefab": "raychi"
         },
         "chrymeaseed_unit": {
-            "health": 100,
+            "health": 200,
             "defence": 20,
             "movement": 2,
             "range": 2,
-            "attack": 1,
+            "attack": 0,
             "cost": 10,
             "hidden": true,
             "unitAbilities": [
