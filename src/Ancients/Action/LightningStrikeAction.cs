@@ -7,6 +7,7 @@ namespace TribeCollection.Ancients;
 public class LightningStrikeAction : PolibActionBase
 {
     public WorldCoordinates Coordinates;
+    public List<WorldCoordinates> ToAnimate = new();
     public LightningStrikeAction(IntPtr ptr) : base(ptr) {}
     public LightningStrikeAction() {}
 
@@ -29,38 +30,41 @@ public class LightningStrikeAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
-        TileData origin = state.Map.GetTile(Coordinates);
-
-        if (origin.unit != null && origin.unit.HasAbility(Main.Capacitor) && ChargeManager.GetChargeCount(origin.unit) < ChargeManager.GetMaxCharge(origin.unit.type))
-        {
-            CAR.New(out ChargeAction action);
-            action.PlayerId = origin.unit.owner;
-            action.Coordinates = origin.unit.coordinates;
-            action.Positive = true;
-            state.ActionStack.Add(action);
-            return;
-        }
-
         Il2Gen.List<TileData> rodNeighbors = state.Map.GetArea(Coordinates, 1, true, false);
 
         foreach (TileData rodNeighbor in rodNeighbors)
         {
-            if (rodNeighbor == null) continue;
+            bool saveForAnim = false;
 
-            if (rodNeighbor.improvement == null)
-            continue;
-
-            ImprovementData rodNeighborData = state.GameLogicData.GetImprovementData(rodNeighbor.improvement.type);
-            if (!rodNeighborData.HasAbility(Main.PowerStorage))
-                continue;
-
-            if (rodNeighbor.improvement.level < rodNeighborData.maxLevel)
+            if (rodNeighbor.unit != null && rodNeighbor.unit.HasAbility(Main.Capacitor) && rodNeighbor.unit.GetChargeCount() < rodNeighbor.unit.GetMaxCharge())
             {
-                if(rodNeighbor.effects == null)
-                    rodNeighbor.effects = new();
-                rodNeighbor.effects.Add(Main.PowerStored);
-                ActionUtils.UpdateImprovementLevel(state, PlayerId, rodNeighbor); // cant do surrounding check cuz i dont have adjacency improvement
+                CAR.New(out ChargeAction action);
+                action.PlayerId = PlayerId;
+                action.Coordinates = rodNeighbor.unit.coordinates;
+                action.Positive = true;
+                state.ActionStack.Add(action);
+
+                saveForAnim = true;
             }
+
+            if (rodNeighbor != null && rodNeighbor.improvement != null)
+            {
+                ImprovementData rodNeighborData = state.GameLogicData.GetImprovementData(rodNeighbor.improvement.type);
+                if (rodNeighborData.HasAbility(Main.PowerStorage))
+                {
+                    if (rodNeighbor.improvement.level < rodNeighborData.maxLevel)
+                    {
+                        if(rodNeighbor.effects == null)
+                            rodNeighbor.effects = new();
+                        rodNeighbor.effects.Add(Main.PowerStored);
+                        ActionUtils.UpdateImprovementLevel(state, PlayerId, rodNeighbor); // cant do surrounding check cuz i dont have adjacency improvement
+                        
+                        saveForAnim = true;
+                    }
+                }
+            }
+
+            if (saveForAnim) ToAnimate.Add(rodNeighbor.coordinates);
         }
     }
 
@@ -68,12 +72,14 @@ public class LightningStrikeAction : PolibActionBase
     {
         writer.Write(PlayerId); //this line is important btw
         Coordinates.Serialize(writer, version);
+        ToAnimate.Serialize(writer, version);
     }
 
     public override void Deserialize(Il2CppSystem.IO.BinaryReader reader, int version)
     {
         PlayerId = reader.ReadByte(); //leave this line in
         Coordinates.Deserialize(reader, version);
+        ToAnimate.Deserialize(reader, version);
     }
 
     public override string ToString()

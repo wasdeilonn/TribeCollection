@@ -48,61 +48,40 @@ public class LightningStrikeReaction : PolibReactionBase
         {
             originTileInstance.Render();
             originTileInstance.Sway();
-
+            //lightning
             VFXManager.SizeMappings["lightning"] = 6f;
             VFXManager.FadeInOutAnimOverrideMappings["lightning"] = new UnityEngine.Vector2(0.1f, 1f);
             VFXManager.EnsureCustomPuffRegistered("Lightning", "Puff");
             originTileInstance.DoPuff("Lightning", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
 
-            if (EnumCache<SFXTypes>.TryGetType("lightning", out var type))
-            {
-                AudioManager.PlaySFXAtTile(type, originTileData.coordinates);
-            }
-            else
-            {
-                M.modLogger.LogInfo("can't find lightning sfx");
-            }
+            //audio
+            AudioManager.PlaySFXAtTile(Main.LightningSFX, originTileData.coordinates);
             AudioManager.PlaySFXAtTile(SFXTypes.FireImpact, originTileData.coordinates);
 
+            //explosion
             VFXManager.SizeMappings["dischargepuff"] = 2f;
             VFXManager.EnsureCustomPuffRegistered("DischargePuff", "Puff");
             originTileInstance.DoPuff("DischargePuff", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
         }
 
-        if (originTileData.unit != null && originTileData.unit.HasAbility(Main.Capacitor)  && ChargeManager.GetChargeCount(originTileData.unit) < ChargeManager.GetMaxCharge(originTileData.unit.type))
+        foreach (WorldCoordinates coordinates in action.ToAnimate)
         {
-            GameManager.DelayCall(200, onComplete);
-            return;
-        }
+            float delay = 0.1f;
+            Tile toAnimate = MapRenderer.Current.GetTileInstance(coordinates);
 
-        Il2Gen.List<TileData> rodAreaTiles = GameManager.GameState.Map.GetArea(action.Coordinates, 1, true, false);
-
-        foreach (TileData rodNeighbourTileData in rodAreaTiles)
-        {
-            if (rodNeighbourTileData == null) continue;
-
-            Tile rodNeighbourTileInstance = rodNeighbourTileData.GetInstance();
-
-            if (rodNeighbourTileInstance == null || rodNeighbourTileInstance.IsHidden) continue;
-
-            if (rodNeighbourTileData.improvement == null)
-            continue;
-
-            if (!GameManager.GameState.GameLogicData.TryGetData(rodNeighbourTileData.improvement.type, out var data))
-            continue;
-
-            if (!data.HasAbility(Main.PowerStorage))
-            continue;
-
-            rodNeighbourTileInstance.Render();
-
-            GameManager.DelayCall(100, (Il2CppSystem.Action)(() =>
+            if (toAnimate != null && !toAnimate.IsHidden)
             {
-                VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
-                rodNeighbourTileInstance.DoPuff("ChargePuff", rodNeighbourTileInstance.transform, rodNeighbourTileInstance.VisualCenterObject.localPosition);
-            }));
-        }
+                GameManager.DelayCall(delay, (Il2CppSystem.Action)delegate
+                {
+                    VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
+                    toAnimate.DoPuff("ChargePuff", toAnimate.transform, toAnimate.VisualCenterObject.localPosition);
+                    toAnimate.SpawnShine();
+                    AudioManager.PlaySFXAtTile(SFXTypes.Plop, coordinates);
+                });
 
+                delay += 0.1f;
+            }
+        }
         GameManager.DelayCall(200, onComplete);
     }
 }

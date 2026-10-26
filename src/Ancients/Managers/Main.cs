@@ -15,19 +15,6 @@ public static class Main
     [HarmonyPatch(typeof(GameLogicData), nameof(GameLogicData.AddGameLogicPlaceholders))]
     public static void Register(Newtonsoft.Json.Linq.JObject rootObject)
     {
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("charge_ability", out Charge));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("discharge_ability", out Discharge));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("capacitor_ability", out Capacitor));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("shock_ability", out Shock));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("protect_ability", out Protect));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("push_ability", out Push));
-        M.modLogger.LogInfo(EnumCache<UnitAbility.Type>.TryGetType("lightning_ability", out LightningExplosion));
-        M.modLogger.LogInfo(EnumCache<UnitEffect>.TryGetType("conductive_effect", out Conductive)); //
-        M.modLogger.LogInfo(EnumCache<UnitEffect>.TryGetType("charge_effect", out Charged)); //
-        M.modLogger.LogInfo(EnumCache<ImprovementAbility.Type>.TryGetType("lightning_improvementability", out LightningImprovement));
-        M.modLogger.LogInfo(EnumCache<ImprovementAbility.Type>.TryGetType("powerstorage_improvementability", out PowerStorage));
-        M.modLogger.LogInfo(EnumCache<TribeType>.TryGetType("ancients", out Ancients));
-        M.modLogger.LogInfo(EnumCache<TileData.EffectType>.TryGetType("powerstored", out PowerStored));
         if (
             !EnumCache<UnitAbility.Type>.TryGetType("charge_ability", out Charge) 
             || !EnumCache<UnitAbility.Type>.TryGetType("discharge_ability", out Discharge)
@@ -46,6 +33,8 @@ public static class Main
             || !EnumCache<TribeType>.TryGetType("ancients", out Ancients)
 
             || !EnumCache<TileData.EffectType>.TryGetType("powerstored", out PowerStored)
+
+            || !EnumCache<SFXTypes>.TryGetType("lightning", out LightningSFX)
             )
 		{
 			M.modLogger.LogFatal("Couldnt find EnumCache for ancients!");
@@ -80,6 +69,7 @@ public static class Main
 
     public static ImprovementAbility.Type LightningImprovement;
     public static ImprovementAbility.Type PowerStorage;
+    public static SFXTypes LightningSFX;
 
 
     [HarmonyPostfix]

@@ -34,14 +34,14 @@ public class ChargeAction : PolibActionBase
 
         if (Positive)
         {
-            if (ChargeManager.GetChargeCount(tile.unit) < ChargeManager.GetMaxCharge(tile.unit.type))
+            if (tile.unit.GetChargeCount() < tile.unit.GetMaxCharge())
             {
                 tile.unit.effects.Add(Main.Charged);
             }
         }
         else
         {
-            for (int i = 0; i < ChargeManager.GetChargeConsumptionAmount(tile.unit.type); i++)
+            for (int i = 0; i < tile.unit.GetChargeConsumptionAmount(); i++)
             {
                 tile.unit.RemoveEffect(Main.Charged);
             }
