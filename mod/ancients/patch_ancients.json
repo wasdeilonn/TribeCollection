@@ -136,11 +136,12 @@
             "defence": 0,
             "movement": 1,
             "range": 2,
-            "attack": 30,
+            "attack": 20,
             "cost": 8,
             "unitAbilities": [
                 "stiff",
                 "static",
+                "doubleattack",
                 "capacitor_ability"
             ],
             "weapon": 6,
@@ -290,20 +291,36 @@
 
         "lightning_ability": {
             "idx": -1
+        },
+        "capacitor_ability/charge_ability/discharge_ability/shock_ability/protect_ability/push_ability/lightning_ability": {
+            "bgColorStates": {
+				"defaultColor": [0.5,0.6,0.8,1],
+				"highlightedColor": [0,0,0,2],
+				"hoverColor": [0,0,0,2],
+				"highlightedHoverColor": [0,0,0,2],
+				"disabledColor": [0,0,0,2]
+			},
+			"labelColorStates": {
+				"defaultColor": [0,0,0,1],
+				"highlightedColor": [0,0,0,2],
+				"hoverColor": [0,0,0,2],
+				"highlightedHoverColor": [0,0,0,2],
+				"disabledColor": [0,0,0,2]
+			}
         }
     },
     "unitEffect": {
         "charge_effect": {
             "idx": -1,
-            "color": "0,0.73,1,1"
+            "color": [0,0.73,1,1]
         },
         "conductive_effect": {
             "idx": -1,
-            "color": "0.4,0.97,1,1"
+            "color": [0.4,0.97,1,1]
         },
         "hammercharged": {
             "idx": -1,
-            "color": "0.6,0.87,0.98,1"
+            "color": [0.6,0.87,0.98,1]
         }
     },
     "tileEffect": {
