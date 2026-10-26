@@ -1,6 +1,9 @@
 using BepInEx.Logging;
 using HarmonyLib;
+using Il2CppInterop.Runtime.Injection;
+using TribeCollection.Ancients.Visual;
 using Il2Gen = Il2CppSystem.Collections.Generic;
+using UnityEngine;
 
 namespace TribeCollection;
 
@@ -30,8 +33,14 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.TechManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.RewardManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.Visual.TileFX));
         PolyMod.Loader.AddPatchDataType("sfx", typeof(SFXTypes));
         PolyMod.Loader.AddPatchDataType("improvementEffect", typeof(ImprovementEffect));
+
+        ClassInjector.RegisterTypeInIl2Cpp<GlobalTint>();
+        var go = new GameObject("GlobalTint");
+        UnityEngine.Object.DontDestroyOnLoad(go);
+        go.AddComponent<GlobalTint>(); 
     }
 
     [HarmonyPrefix]

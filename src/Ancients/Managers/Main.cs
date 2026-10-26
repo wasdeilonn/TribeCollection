@@ -26,6 +26,7 @@ public static class Main
 
             || !EnumCache<UnitEffect>.TryGetType("conductive_effect", out Conductive)
             || !EnumCache<UnitEffect>.TryGetType("charge_effect", out Charged)
+            || !EnumCache<UnitEffect>.TryGetType("hammercharged", out Hammered)
 
             || !EnumCache<ImprovementAbility.Type>.TryGetType("lightning_improvementability", out LightningImprovement)
             || !EnumCache<ImprovementAbility.Type>.TryGetType("powerstorage_improvementability", out PowerStorage)
@@ -33,6 +34,8 @@ public static class Main
             || !EnumCache<TribeType>.TryGetType("ancients", out Ancients)
 
             || !EnumCache<TileData.EffectType>.TryGetType("powerstored", out PowerStored)
+
+            || !EnumCache<CityReward>.TryGetType("ancteslatower", out TeslaTower)
 
             || !EnumCache<SFXTypes>.TryGetType("lightning", out LightningSFX)
             )
@@ -65,6 +68,8 @@ public static class Main
     public static UnitAbility.Type LightningExplosion;
     public static UnitEffect Charged;
     public static UnitEffect Conductive;
+    public static UnitEffect Hammered;
+    public static CityReward TeslaTower;
     public static TileData.EffectType PowerStored;
 
     public static ImprovementAbility.Type LightningImprovement;

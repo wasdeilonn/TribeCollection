@@ -43,7 +43,7 @@
                 "knight": "ancspark",
                 "archer": "ancarcher",
                 "rider": "ancrider",
-                "defender": "ancsentry",
+                "mindbender": "ancsentry",
                 "swordsman": "ancaccumulator"
             },
             "improvementOverrides":{
@@ -52,11 +52,11 @@
             },
             "cityRewardOverrides": {
                 "explorer": "ancfreetech",
-                "workshop": "ancresources",
-                "resources": "ancbordergrowth",
-                "citywall": "ancvetspark",
-                "populationgrowth": "ancwirefence",
-                "bordergrowth": "ancspyvision",
+
+
+                "citywall": "ancteslatower",
+                "populationgrowth": "ancspyvision",
+
                 "park": "ancfreetech",
                 "superunit": "anchammer"
             },
@@ -71,21 +71,11 @@
         "ancfreetech": {
             "idx": -1
         },
-        "ancresources": {
-            "idx": -1,
-            "currencyReward": 5
-        },
-        "ancvetspark": {
-            "idx": -1
-        },
-        "ancbordergrowth": {
-            "idx": -1,
-            "borderGrowthAmount": 1
-        },
         "ancspyvision": {
-            "idx": -1
+            "idx": -1,
+            "scoutSpawnAmount": 3
         },
-        "ancwirefence": {
+        "ancteslatower": {
             "idx": -1
         },
         "anchammer": {
@@ -319,8 +309,7 @@
             "color": [0.4,0.97,1,1]
         },
         "hammercharged": {
-            "idx": -1,
-            "color": [0.6,0.87,0.98,1]
+            "idx": -1
         }
     },
     "tileEffect": {
