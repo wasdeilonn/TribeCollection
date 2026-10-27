@@ -15,7 +15,9 @@ public static class TileFX
     [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext), typeof(SkinVisualsTransientData))]
     private static void ResetTile(Tile __instance)
     {
-        if (__instance.data.unit != null)
+        TileData tile = __instance.data;
+
+        if (tile.unit != null)
         {
             foreach (SkinVisualsReference.VisualPart visualPart in __instance.Unit.skinVisuals.visualParts)
             {
@@ -34,5 +36,51 @@ public static class TileFX
                 }
             }
         }
+
+        if (tile.HasTesla())
+        {
+            if (!tile.GetNeighbor(GridDirection.N, GameManager.GameState).HasTesla())
+            {
+                __instance.border.northBorder.gameObject.SetActive(true);
+            }
+            GlobalTint.Register(__instance.border.northBorder);
+
+            if (!tile.GetNeighbor(GridDirection.E, GameManager.GameState).HasTesla())
+            {
+                __instance.border.eastBorder.gameObject.SetActive(true);
+            }
+            GlobalTint.Register(__instance.border.eastBorder);
+
+            if (!tile.GetNeighbor(GridDirection.W, GameManager.GameState).HasTesla())
+            {
+                __instance.border.westBorder.gameObject.SetActive(true);
+            }
+            GlobalTint.Register(__instance.border.westBorder);
+
+            if (!tile.GetNeighbor(GridDirection.S, GameManager.GameState).HasTesla())
+            {
+                __instance.border.southBorder.gameObject.SetActive(true);
+            }
+            GlobalTint.Register(__instance.border.southBorder);
+        }
+        
+    }
+
+    public static bool HasTesla(this TileData tile)
+    {
+        if (tile.rulingCityCoordinates == WorldCoordinates.NULL_COORDINATES) return false;
+
+        TileData cityTile = GameManager.GameState.Map.GetTile(tile.rulingCityCoordinates);
+
+        if (!cityTile.HasImprovement(ImprovementData.Type.City)) return false;
+        
+        return cityTile.improvement.HasReward(Main.TeslaTower);
+    }
+
+    public static TileData GetNeighbor(this TileData tile, GridDirection direction, GameState state)
+    {
+        WorldCoordinates toAdd = direction.ToCoordinates();
+
+        return state.Map.GetTile(tile.coordinates + toAdd);
     }
 }

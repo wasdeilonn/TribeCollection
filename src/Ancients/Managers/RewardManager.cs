@@ -2,6 +2,7 @@ using HarmonyLib;
 using Polytopia.Data;
 using Polibrary.PolyScript;
 using M = TribeCollection.Main;
+using System.Data;
 
 namespace TribeCollection.Ancients;
 
@@ -35,29 +36,6 @@ public static class RewardManager
 
             capital.improvement.rewards.Add(EnumCache<CityReward>.GetType("ancinternal_tech"));
         }
-        else if(__instance.Reward == EnumCache<CityReward>.GetType("ancvetspark"))
-        {
-            state.ActionStack.Add(new PromoteAction(__instance.PlayerId, __instance.Coordinates));
-            ActionUtils.TrainUnitOnOccupiedSpace(state, __instance.PlayerId, EnumCache<UnitData.Type>.GetType("ancspark"), tile); // add lightning hit effect
-        }
-        else if(__instance.Reward == EnumCache<CityReward>.GetType("ancspyvision"))
-        {
-            if (tile == null
-                || !state.TryGetPlayer(__instance.PlayerId, out PlayerState playerState))
-                return;
-
-            foreach (var mapTile in state.Map.Tiles)
-            {
-                if (!mapTile.GetExplored(playerState.Id))
-                {
-                    continue;
-                }
-                foreach(var areaTile in state.Map.GetArea(mapTile.coordinates, 1, true, false))
-                {
-                    ActionUtils.ExploreTile(state, playerState, areaTile, true);
-                }
-            }
-        }
     }
 
     [HarmonyPostfix]
@@ -66,10 +44,14 @@ public static class RewardManager
     {
         TileData targetTile = state.Map.GetTile(__instance.Path[0]);
 
-        if(!targetTile.HasImprovement(ImprovementData.Type.City))
+        if (targetTile.rulingCityCoordinates == WorldCoordinates.NULL_COORDINATES) return;
+        
+        TileData cityTile = state.Map.GetTile(targetTile.rulingCityCoordinates);
+
+        if(!cityTile.HasImprovement(ImprovementData.Type.City))
             return;
 
-        if(!targetTile.improvement.HasReward(EnumCache<CityReward>.GetType("ancwirefence")))
+        if(!cityTile.improvement.HasReward(Main.TeslaTower))
             return;
 
         if(!state.TryGetUnit(__instance.UnitId, out UnitState unit))
@@ -93,7 +75,7 @@ public static class RewardManager
         if(!tile.improvement.HasReward(hammer))
             return;
 
-        __result.AddEffect(EnumCache<UnitEffect>.GetType("hammercharged"));
+        __result.AddEffect(Main.Hammered);
 
         if(tile.improvement.rewards == null)
             tile.improvement.rewards = new();
@@ -105,7 +87,7 @@ public static class RewardManager
     [HarmonyPatch(typeof(UnitDataExtensions), nameof(UnitDataExtensions.GetAttack), new System.Type[] { typeof(UnitState), typeof(GameState)})]
 	public static void GetAttack(ref int __result, UnitState unitState, GameState gameState)
 	{
-		if(unitState.HasEffect(EnumCache<UnitEffect>.GetType("hammercharged")))
+		if(unitState.HasEffect(Main.Hammered))
             __result += 200;
 	}
 
@@ -113,7 +95,7 @@ public static class RewardManager
     [HarmonyPatch(typeof(UnitDataExtensions), nameof(UnitDataExtensions.GetDefenceBonus))]
 	public static void GetDefenceBonus(ref int __result, UnitState unit, GameState gameState)
 	{
-		if(unit.HasEffect(EnumCache<UnitEffect>.GetType("hammercharged")))
+		if(unit.HasEffect(Main.Hammered))
             __result += 10;
 	}
 
@@ -121,15 +103,29 @@ public static class RewardManager
     [HarmonyPatch(typeof(CityRewardReaction), nameof(CityRewardReaction.Execute))]
     private static void CityRewardReaction_Execute(CityRewardReaction __instance, Il2CppSystem.Action onComplete)
     {
-        if(__instance.action.Reward != EnumCache<CityReward>.GetType("anchammer"))
-            return;
-
-        TileData tileData = GameManager.GameState.Map.GetTile(__instance.action.Coordinates);
-        Tile tile = tileData.GetInstance();
-        GameManager.DelayCall(100, (Il2CppSystem.Action)(() =>
+        if (__instance.action.Reward == Main.TeslaTower)
         {
-            VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
-            tile.DoPuff("ChargePuff", tile.transform, tile.VisualCenterObject.localPosition);
-        }));
+            TileData tileData = GameManager.GameState.Map.GetTile(__instance.action.Coordinates);
+
+
+            foreach (TileData areaTileData in ActionUtils.GetCityArea(GameManager.GameState, tileData))
+            {
+                Tile tile = areaTileData.GetInstance();
+
+                tile.Render();
+            }
+        }
+
+        if(__instance.action.Reward == EnumCache<CityReward>.GetType("anchammer"))
+        {
+            TileData tileData = GameManager.GameState.Map.GetTile(__instance.action.Coordinates);
+            Tile tile = tileData.GetInstance();
+            GameManager.DelayCall(100, (Il2CppSystem.Action)(() =>
+            {
+                tile.Sway();
+                tile.SpawnShine();
+                AudioManager.PlaySFXAtTile(SFXTypes.Promote, tileData.coordinates);
+            }));
+        }
     }
 }
