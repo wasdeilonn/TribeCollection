@@ -63,7 +63,13 @@ public static class TileFX
             }
             GlobalTint.Register(__instance.border.southBorder);
         }
-        
+        else
+        {
+            GlobalTint.Unregister(__instance.border.northBorder);
+            GlobalTint.Unregister(__instance.border.eastBorder);
+            GlobalTint.Unregister(__instance.border.westBorder);
+            GlobalTint.Unregister(__instance.border.southBorder);
+        }
     }
 
     public static bool HasTesla(this TileData tile)

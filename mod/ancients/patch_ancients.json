@@ -102,7 +102,7 @@
             "defence": 10,
             "movement": 2,
             "range": 1,
-            "attack": 15,
+            "attack": 20,
             "cost": 3,
             "unitAbilities": [
                 "land",
@@ -194,7 +194,7 @@
 			"range": 2,
 			"attack": 20,
 			"cost": 3,
-			"weapon": 2,
+			"weapon": 3,
 			"unitAbilities": [
 				"land",
                 "dash",
