@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TribeCollection.Ancients.Visual;
 
-public static class TileFX
+public static class Glow
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext))]

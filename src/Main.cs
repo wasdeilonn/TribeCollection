@@ -33,7 +33,7 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.TechManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.RewardManager));
-        Harmony.CreateAndPatchAll(typeof(Ancients.Visual.TileFX));
+        Harmony.CreateAndPatchAll(typeof(Ancients.Visual.Glow));
         PolyMod.Loader.AddPatchDataType("sfx", typeof(SFXTypes));
         PolyMod.Loader.AddPatchDataType("improvementEffect", typeof(ImprovementEffect));
 
