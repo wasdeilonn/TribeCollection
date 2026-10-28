@@ -13,7 +13,7 @@ public static class TileFX
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext))]
     [HarmonyPatch(typeof(Tile), nameof(Tile.Render), typeof(MapRenderContext), typeof(SkinVisualsTransientData))]
-    private static void ResetTile(Tile __instance)
+    private static void TileEffects(Tile __instance)
     {
         TileData tile = __instance.data;
 
@@ -72,8 +72,20 @@ public static class TileFX
         }
     }
 
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(BorderContainer), nameof(BorderContainer.SetColor))]
+    private static void AfterSetColor(BorderContainer __instance)
+    {
+        GlobalTint.Rebase(__instance.northBorder);
+        GlobalTint.Rebase(__instance.eastBorder);
+        GlobalTint.Rebase(__instance.southBorder);
+        GlobalTint.Rebase(__instance.westBorder);
+    }
+
     public static bool HasTesla(this TileData tile)
     {
+        if (tile == null) return false;
+
         if (tile.rulingCityCoordinates == WorldCoordinates.NULL_COORDINATES) return false;
 
         TileData cityTile = GameManager.GameState.Map.GetTile(tile.rulingCityCoordinates);
@@ -88,5 +100,12 @@ public static class TileFX
         WorldCoordinates toAdd = direction.ToCoordinates();
 
         return state.Map.GetTile(tile.coordinates + toAdd);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PolytopiaSpriteRenderer), nameof(PolytopiaSpriteRenderer.ReturnToPool))]
+    private static void OnReturn(PolytopiaSpriteRenderer __instance)
+    {
+        GlobalTint.Unregister(__instance); //we need this guy to unregister stuff so it doesnt affect pooled stuff
     }
 }

@@ -6,9 +6,9 @@ using M = TribeCollection.Main;
 using UnityEngine;
 
 
-namespace TribeCollection.Ancients.Visual;
+namespace TribeCollection;
 
-public class GlobalTint : MonoBehaviour
+public class GlobalTint : MonoBehaviour //NOTE: this does unbatch things sometimes. which means it may have shitty performance. oops
 {
     public GlobalTint(IntPtr ptr) : base(ptr) { }
     public static bool Enabled = true;
@@ -20,12 +20,23 @@ public class GlobalTint : MonoBehaviour
     static readonly int OverlayStrengthId = Shader.PropertyToID("_OverlayStrength");
     static readonly Dictionary<PolytopiaSpriteRenderer, Color> polyTargets = new Dictionary<PolytopiaSpriteRenderer, Color>();
     static readonly Dictionary<SpriteRenderer, Color> unityTargets = new Dictionary<SpriteRenderer, Color>();
+    const int Steps = 40;
+    static Color currentColor = Color.white;
     static bool wasEnabled = true;
+    public static void Rebase(PolytopiaSpriteRenderer r)
+    {
+        if (r == null || !polyTargets.ContainsKey(r)) return;
+        polyTargets[r] = r.Color;
+        r.Color = currentColor;
+    }
     public static void Register(PolytopiaSpriteRenderer renderer)
     {
         if (renderer != null && !polyTargets.ContainsKey(renderer))
         {
             polyTargets[renderer] = renderer.Color;
+            renderer.SetBatched(false);
+            renderer.Color = currentColor;
+            renderer.ForceUpdateMesh();
         }
     }
     public static void Unregister(PolytopiaSpriteRenderer renderer)
@@ -74,8 +85,9 @@ public class GlobalTint : MonoBehaviour
 
         float overlayStrenght = 0.6f;
         
-        float num = Mathf.SmoothStep(0f, 1f, Mathf.PingPong(Time.time / Duration, 1f));
-        Color color = Color.Lerp(From, To, num);
+        float num = Mathf.PingPong(Time.time / Duration, 1f);
+        num = Mathf.Round(num * Steps) / Steps;
+        currentColor = Color.Lerp(From, To, num);
  
         
         List<PolytopiaSpriteRenderer> deadPoly = null;
@@ -91,7 +103,13 @@ public class GlobalTint : MonoBehaviour
                 deadPoly.Add(renderer); 
                 continue; 
             }
-            renderer.Color = color;
+            Color target = Color.Lerp(kvp.Value, From, num);
+            if (renderer.Color != target)
+            {
+                renderer.Color = target;
+                renderer.ForceUpdateMesh();
+            }
+            if (renderer.isBatched) renderer.SetBatched(false);
         }
         if (deadPoly != null)
         {
