@@ -3,6 +3,7 @@ using Polytopia.Data;
 using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 using System.Data;
+using Polibrary;
 
 namespace TribeCollection.Ancients;
 
@@ -107,11 +108,41 @@ public static class RewardManager
         {
             TileData tileData = GameManager.GameState.Map.GetTile(__instance.action.Coordinates);
 
+            List<TileData> tilesToUpdate = ActionUtils.GetCityArea(GameManager.GameState, tileData).ToSysList();
+            List<WorldCoordinates> coordsToCheck = new();
 
-            foreach (TileData areaTileData in ActionUtils.GetCityArea(GameManager.GameState, tileData))
+            foreach (TileData aaa in tilesToUpdate) 
+                coordsToCheck.Add(aaa.coordinates);
+
+            foreach (WorldCoordinates coordinates in coordsToCheck)
             {
-                Tile tile = areaTileData.GetInstance();
+                TileData tileData1 = GameManager.GameState.Map.GetTile(coordinates);
 
+                TileData north = tileData1.GetNeighbor(GridDirection.N, GameManager.GameState);
+                if (north != null && !coordsToCheck.Contains(north.coordinates))
+                {
+                    tilesToUpdate.Add(north);
+                }
+                TileData south = tileData1.GetNeighbor(GridDirection.S, GameManager.GameState);
+                if (south != null && !coordsToCheck.Contains(south.coordinates))
+                {
+                    tilesToUpdate.Add(south);
+                }
+                TileData west = tileData1.GetNeighbor(GridDirection.W, GameManager.GameState);
+                if (west != null && !coordsToCheck.Contains(west.coordinates))
+                {
+                    tilesToUpdate.Add(west);
+                }
+                TileData east = tileData1.GetNeighbor(GridDirection.E, GameManager.GameState);
+                if (east != null && !coordsToCheck.Contains(east.coordinates))
+                {
+                    tilesToUpdate.Add(east);
+                }
+            }
+
+            foreach (TileData tileData2 in tilesToUpdate)
+            {
+                Tile tile = tileData2.GetInstance();
                 tile.Render();
             }
         }

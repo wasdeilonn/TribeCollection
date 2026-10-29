@@ -356,7 +356,7 @@
                 "powerstorage_improvementability"
             ],
             "rewards": [
-                {"population": 1}
+                {"population": 2}
             ],
 			"maxLevel": 8,
 			"idx": -1

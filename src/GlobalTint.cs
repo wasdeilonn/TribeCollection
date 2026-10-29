@@ -68,8 +68,14 @@ public class GlobalTint : MonoBehaviour //NOTE: this does unbatch things sometim
             ApplyOverlay(renderer, To, 0f);
         }
     }
+    public static void Reassert(PolytopiaSpriteRenderer renderer)
+    {
+        if (renderer == null || !polyTargets.ContainsKey(renderer)) return;
+        if (renderer.isBatched) renderer.SetBatched(false);
+        renderer.ForceUpdateMesh();
+    }
     public static void Toggle() => Enabled = !Enabled;
-    void Update()
+    void LateUpdate()
     {
         if (!Enabled)
         {

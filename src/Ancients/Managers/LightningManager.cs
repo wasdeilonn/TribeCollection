@@ -90,6 +90,7 @@ public static class LightningManager
         tile.effects = filteredEffects;
         tile.improvement.level = 1;
         state.ActionStack.Add(new IncreasePopulationAction(__instance.PlayerId, tile.coordinates, tile.rulingCityCoordinates, 60));
+        state.ActionStack.Add(new IncreasePopulationAction(__instance.PlayerId, tile.coordinates, tile.rulingCityCoordinates, 60));
     }
 
 }

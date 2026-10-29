@@ -51,6 +51,11 @@ public static class Main
     {
         TerrainMaterialHelper.SetSpriteTint(__instance.terrainRenderer.SpriteRenderer, new UnityEngine.Color(1f, 1f, 1f, 1f));
 
+        if (__instance.Resource != null)
+        {
+            TerrainMaterialHelper.SetSpriteTint(__instance.Resource.SpriteRenderer, new UnityEngine.Color(1f, 1f, 1f, 1f));
+        }
+
         //__instance.shoreline.north.Sprite = ; TODO: somehow get the shoreline sprites to reset
         TerrainMaterialHelper.SetSpriteTint(__instance.shoreline.north, new UnityEngine.Color(1f, 1f, 1f, 1f));
         //__instance.shoreline.south.Sprite = PolyMod.Registry.GetSprite("shoreline");
@@ -72,5 +77,11 @@ public static class Main
     public static T Last<T>(this T[] list)
     {
         return list[list.Length - 1];
+    }
+    public static TileData GetNeighbor(this TileData tile, GridDirection direction, GameState state)
+    {
+        WorldCoordinates toAdd = direction.ToCoordinates();
+
+        return state.Map.GetTile(tile.coordinates + toAdd);
     }
 }

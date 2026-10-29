@@ -95,17 +95,20 @@ public static class Glow
         return cityTile.improvement.HasReward(Main.TeslaTower);
     }
 
-    public static TileData GetNeighbor(this TileData tile, GridDirection direction, GameState state)
-    {
-        WorldCoordinates toAdd = direction.ToCoordinates();
-
-        return state.Map.GetTile(tile.coordinates + toAdd);
-    }
-
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PolytopiaSpriteRenderer), nameof(PolytopiaSpriteRenderer.ReturnToPool))]
     private static void OnReturn(PolytopiaSpriteRenderer __instance)
     {
         GlobalTint.Unregister(__instance); //we need this guy to unregister stuff so it doesnt affect pooled stuff
+    }
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(BorderContainer), nameof(BorderContainer.Render))]
+    private static void AfterBorderRender(BorderContainer __instance)
+    {
+        GlobalTint.Reassert(__instance.northBorder);
+        GlobalTint.Reassert(__instance.eastBorder);
+        GlobalTint.Reassert(__instance.southBorder);
+        GlobalTint.Reassert(__instance.westBorder);
     }
 }
