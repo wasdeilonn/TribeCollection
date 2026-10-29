@@ -100,6 +100,9 @@
     "ancrod__": {
         "pivot": [0.5, 0.15]
     },
+    "house__3409": {
+        "pivot": [0.5, -0.09]
+    },
     "animaconduit_improvement__0": {
         "pivot": [0.5, 0.35]
     },
