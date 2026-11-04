@@ -85,4 +85,24 @@ public static class Main
 
         return state.Map.GetTile(tile.coordinates + toAdd);
     }
+    public static bool IsFriendly(this UnitState target, byte originPlayer, GameState state)
+    {
+        if (!state.TryGetPlayer(originPlayer, out var player)) return false;
+
+        if (target.owner == originPlayer || target.HasActivePeaceTreaty(state, player))
+        {
+            return true;
+        }
+        return false;
+    }
+    public static bool IsFriendly(this TileData target, byte originPlayer, GameState state)
+    {
+        if (!state.TryGetPlayer(originPlayer, out var player)) return false;
+
+        if (target.owner == originPlayer || player.HasPeaceWith(target.owner))
+        {
+            return true;
+        }
+        return false;
+    }
 }

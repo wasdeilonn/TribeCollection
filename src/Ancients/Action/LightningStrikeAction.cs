@@ -30,13 +30,19 @@ public class LightningStrikeAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
-        Il2Gen.List<TileData> rodNeighbors = state.Map.GetArea(Coordinates, 1, true, false);
+        Il2Gen.List<TileData> rodNeighbors = state.Map.GetArea(Coordinates, 1, true, true);
 
         foreach (TileData rodNeighbor in rodNeighbors)
         {
             bool saveForAnim = false;
 
-            if (rodNeighbor.unit != null && rodNeighbor.unit.HasAbility(Main.Capacitor) && rodNeighbor.unit.GetChargeCount() < rodNeighbor.unit.GetMaxCharge())
+            if (
+                rodNeighbor != null
+                && rodNeighbor.unit != null 
+                && rodNeighbor.unit.IsFriendly(PlayerId, state)
+                && rodNeighbor.unit.HasAbility(Main.Capacitor) 
+                && rodNeighbor.unit.GetChargeCount() < rodNeighbor.unit.GetMaxCharge()
+                )
             {
                 CAR.New(out ChargeAction action);
                 action.PlayerId = PlayerId;
@@ -47,7 +53,7 @@ public class LightningStrikeAction : PolibActionBase
                 saveForAnim = true;
             }
 
-            if (rodNeighbor != null && rodNeighbor.improvement != null)
+            if (rodNeighbor != null && rodNeighbor.IsFriendly(PlayerId, state) && rodNeighbor.improvement != null)
             {
                 ImprovementData rodNeighborData = state.GameLogicData.GetImprovementData(rodNeighbor.improvement.type);
                 if (rodNeighborData.HasAbility(Main.PowerStorage))

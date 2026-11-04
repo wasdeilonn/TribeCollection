@@ -334,6 +334,9 @@
                 "lightning_improvementability"
             ],
 			"maxLevel": 0,
+            "rewards":[
+                {"population": 1}
+            ],
 			"idx": -1
 		},
         "ancpowerplant": {
