@@ -1,7 +1,4 @@
 {
-    "unit_names_ancarcheologist": {
-        "English": "Archeologist"
-    },
     "unit_names_ancwarrior": {
         "English": "Lightning Warrior"
     },
@@ -44,12 +41,6 @@
     },
     "tooltip_ability_charge__ability": {
         "English": "This unit can charge units with the 'Capacitor' ability."
-    },
-    "unit_abilities_eightway__ability": {
-        "English": "8-WAY"
-    },
-    "tooltip_ability_eightway__ability": {
-        "English": "This unit can only attack in an 8-way pattern."
     },
     "unit_abilities_capacitor__ability": {
         "English": "CAPACITOR"
@@ -101,16 +92,7 @@
     },
 
     "building_ability_lightning__improvementability": {
-        "English": "{0} gets struck by lightning on the beginning of every turn. Lightning either charges chargeable units standing on {0}, or powers adjacent infrastructure."
-    },
-    "building_ability_electric__improvementability": {
-        "English": "{0} uses power from adjacent lightning to gain 1 level."
-    },
-    "building_ability_collect__improvementability": {
-        "English": "You can collect 1 population from {0} once at max level."
-    },
-    "building_ability_maxed__improvementability": {
-        "English": "When built, {0} gets leveled up to its maximum level."
+        "English": "{0} gets struck by lightning on the beginning of every turn. Lightning charges adjacent units and infrastructure."
     },
     "building_ability_powerstorage__improvementability": {
         "English": "{0} levels up per lightning strike near it. If {0} reaches its maximum level, it resets and grants 2 population."
@@ -123,30 +105,11 @@
         "English": "Discharge"
     },
 
-    "world_ancients_popup_header": {
-        "English": "Ancient Writings"
-    },
-    "world_ancients_popup_description": {
-        "English": "You found ancient writings detailing forgotten applications of lightning magic. Your researchers could only partially decode the writings and are divided between 2 possible meanings."
-    },
-    "world_ancients_popup_description2": {
-        "English": "You found ancient writings detailing forgotten applications of lightning magic. Your researchers successfully decoded the writings."
-    },
-
     "wcontroller_reward_ancinternal__tech": {
         "English": "Manuscript"
     },
     "wcontroller_reward_ancfreetech": {
         "English": "Manuscript"
-    },
-    "wcontroller_reward_ancresources": {
-        "English": "Resources"
-    },
-    "wcontroller_reward_ancbordergrowth": {
-        "English": "Border Growth"
-    },
-    "wcontroller_reward_ancvetspark": {
-        "English": "Veteran Spark"
     },
     "wcontroller_reward_ancteslatower": {
         "English": "Tesla Tower"
