@@ -97,7 +97,7 @@
         "English": "Lightning Rod"
     },
     "building_names_ancpowerplant": {
-        "English": "Power Plant"
+        "English": "Ænima Dial"
     },
 
     "building_ability_lightning__improvementability": {
@@ -111,6 +111,9 @@
     },
     "building_ability_maxed__improvementability": {
         "English": "When built, {0} gets leveled up to its maximum level."
+    },
+    "building_ability_powerstorage__improvementability": {
+        "English": "{0} levels up per lightning strike near it. If {0} reaches its maximum level, it resets and grants 2 population."
     },
 
     "action_info_excavatecommand": {
@@ -145,11 +148,11 @@
     "wcontroller_reward_ancvetspark": {
         "English": "Veteran Spark"
     },
-    "wcontroller_reward_ancwirefence": {
-        "English": "Wire Fence"
+    "wcontroller_reward_ancteslatower": {
+        "English": "Tesla Tower"
     },
     "wcontroller_reward_ancspyvision": {
-        "English": "Spy Vision"
+        "English": "Scouts"
     },
     "wcontroller_reward_anchammer": {
         "English": "Topan's Hammer"

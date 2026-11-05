@@ -102,14 +102,5 @@
     },
     "house__3409": {
         "pivot": [0.5, -0.09]
-    },
-    "animaconduit_improvement__0": {
-        "pivot": [0.5, 0.35]
-    },
-    "animaconduit_improvement__1": {
-        "pivot": [0.5, 0.35]
-    },
-    "animaconduit_improvement__2": {
-        "pivot": [0.5, 0.35]
     }
 }
