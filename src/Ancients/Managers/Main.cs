@@ -150,4 +150,26 @@ public static class Main
 
         return true;
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(StartMatchAction), nameof(StartMatchAction.Execute))]
+    private static void PolytopiaCityName(GameState gameState)
+    {
+        foreach (PlayerState player in gameState.PlayerStates)
+        {
+            if (player.tribe == Ancients)
+            {
+                gameState.GameLogicData.TryGetData(Ancients, out var data);
+                if (player.color == data.color)
+                {
+                    TileData tile = gameState.Map.GetTile(player.GetCurrentCapitalCoordinates(gameState));
+
+                    if (tile != null && tile.improvement != null)
+                    {
+                        tile.improvement.name = "Polytopia";
+                    }
+                }
+            }
+        }
+    }
 }
