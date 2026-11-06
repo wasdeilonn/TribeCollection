@@ -109,7 +109,7 @@ public static class ChargeManager
             state.ActionStack.Add(action);
 		}
 
-        if (attacker.HasAbility(Main.Capacitor) && attacker.DoesConsume("attack"))
+        if (attacker.HasAbility(Main.Capacitor) && attacker.DoesConsume("attack") && attacker.GetChargeCount() != 0)
         {
             CAR.New(out ChargeAction action);
             action.PlayerId = attacker.owner;
