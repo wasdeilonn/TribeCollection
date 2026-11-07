@@ -13,24 +13,24 @@ public static class Main
     public static void Load(ManualLogSource logger)
     {
         modLogger = logger;
-        Harmony.CreateAndPatchAll(typeof(Main));
+        Harmony.CreateAndPatchAll(typeof(Main)); //not any of these
         Harmony.CreateAndPatchAll(typeof(Crimson.Main));
         Harmony.CreateAndPatchAll(typeof(Crimson.UnitAbilityManager));
         Harmony.CreateAndPatchAll(typeof(Crimson.Visual.Misc));
         Harmony.CreateAndPatchAll(typeof(Crimson.Visual.Jump));
         Harmony.CreateAndPatchAll(typeof(Crimson.FeedManager));
 
-        Harmony.CreateAndPatchAll(typeof(Sylth.Main));
+        Harmony.CreateAndPatchAll(typeof(Sylth.Main)); //nor these
         Harmony.CreateAndPatchAll(typeof(Sylth.VeilManager));
         Harmony.CreateAndPatchAll(typeof(Sylth.InvisibilityManager));
         Harmony.CreateAndPatchAll(typeof(Sylth.Visual.TileFX));
 
         Harmony.CreateAndPatchAll(typeof(Ancients.Main));
-        Harmony.CreateAndPatchAll(typeof(Ancients.ChargeManager));
-        Harmony.CreateAndPatchAll(typeof(Ancients.ConductionManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.ChargeManager)); //not this
+        Harmony.CreateAndPatchAll(typeof(Ancients.ConductionManager)); //no
         Harmony.CreateAndPatchAll(typeof(Ancients.LightningManager));
-        Harmony.CreateAndPatchAll(typeof(Ancients.PushManager));
-        Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.PushManager)); //no
+        Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager)); //no
         Harmony.CreateAndPatchAll(typeof(Ancients.TechManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.RewardManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.Visual.Glow));
