@@ -120,12 +120,11 @@
             "defence": 0,
             "movement": 1,
             "range": 2,
-            "attack": 20,
+            "attack": 30,
             "cost": 8,
             "unitAbilities": [
                 "stiff",
                 "static",
-                "doubleattack",
                 "capacitor_ability"
             ],
             "weapon": 6,
