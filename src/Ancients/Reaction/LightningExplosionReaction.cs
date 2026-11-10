@@ -1,4 +1,5 @@
 using Polibrary.PolyScript;
+using TribeCollection.Ancients.Visual;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
@@ -47,24 +48,12 @@ public class LightningExplosionReaction : PolibReactionBase
             originTileInstance.Render();
             originTileInstance.Sway();
 
-            VFXManager.SizeMappings["lightning"] = 6f;
-            VFXManager.FadeInOutAnimOverrideMappings["lightning"] = new UnityEngine.Vector2(0.1f, 1f);
-            VFXManager.EnsureCustomPuffRegistered("Lightning", "Puff");
-            originTileInstance.DoPuff("Lightning", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
+            originTileInstance.SpawnLightning();
 
-            if (EnumCache<SFXTypes>.TryGetType("lightning", out var type))
-            {
-                AudioManager.PlaySFXAtTile(type, originTileData.coordinates);
-            }
-            else
-            {
-                M.modLogger.LogInfo("can't find lightning sfx");
-            }
+            AudioManager.PlaySFXAtTile(Main.LightningSFX, originTileData.coordinates);
             AudioManager.PlaySFXAtTile(SFXTypes.FireImpact, originTileData.coordinates);
 
-            VFXManager.SizeMappings["dischargepuff"] = 2f;
-            VFXManager.EnsureCustomPuffRegistered("DischargePuff", "Puff");
-            originTileInstance.DoPuff("DischargePuff", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
+            originTileInstance.SpawnDischargePuff();
             originTileInstance.SpawnAreaDamage();
         }
 

@@ -1,4 +1,5 @@
 using Polibrary.PolyScript;
+using TribeCollection.Ancients.Visual;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
@@ -39,9 +40,9 @@ public class ApplyConductionReaction : PolibReactionBase
         if (instance != null && !instance.IsHidden)
         {
             instance.Render();
-            VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
-            instance.DoPuff("ChargePuff", instance.transform, instance.VisualCenterObject.localPosition);
-            GameManager.DelayCall(50, onComplete);
+            instance.SpawnChargePuff();
+            instance.Sway();
+            GameManager.DelayCall(100, onComplete);
             return;
         }
 

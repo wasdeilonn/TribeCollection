@@ -1,4 +1,5 @@
 using Polibrary.PolyScript;
+using TribeCollection.Ancients.Visual;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
@@ -48,20 +49,15 @@ public class LightningStrikeReaction : PolibReactionBase
         {
             originTileInstance.Render();
             originTileInstance.Sway();
-            //lightning
-            VFXManager.SizeMappings["lightning"] = 6f;
-            VFXManager.FadeInOutAnimOverrideMappings["lightning"] = new UnityEngine.Vector2(0.1f, 1f);
-            VFXManager.EnsureCustomPuffRegistered("Lightning", "Puff");
-            originTileInstance.DoPuff("Lightning", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
+            
+            originTileInstance.SpawnLightning();
 
             //audio
             AudioManager.PlaySFXAtTile(Main.LightningSFX, originTileData.coordinates);
             AudioManager.PlaySFXAtTile(SFXTypes.FireImpact, originTileData.coordinates);
 
             //explosion
-            VFXManager.SizeMappings["dischargepuff"] = 2f;
-            VFXManager.EnsureCustomPuffRegistered("DischargePuff", "Puff");
-            originTileInstance.DoPuff("DischargePuff", originTileInstance.transform, originTileInstance.VisualCenterObject.localPosition);
+            originTileInstance.SpawnDischargePuff();
         }
 
         foreach (WorldCoordinates coordinates in action.ToAnimate)
@@ -73,8 +69,7 @@ public class LightningStrikeReaction : PolibReactionBase
             {
                 GameManager.DelayCall(delay, (Il2CppSystem.Action)delegate
                 {
-                    VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
-                    toAnimate.DoPuff("ChargePuff", toAnimate.transform, toAnimate.VisualCenterObject.localPosition);
+                    toAnimate.SpawnChargePuff();
                     toAnimate.SpawnShine();
                     AudioManager.PlaySFXAtTile(SFXTypes.Plop, coordinates);
                 });

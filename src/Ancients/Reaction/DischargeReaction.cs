@@ -1,4 +1,6 @@
+using DG.Tweening.Core;
 using Polibrary.PolyScript;
+using TribeCollection.Ancients.Visual;
 
 namespace TribeCollection.Ancients;
 public class DischargeReaction : PolibReactionBase
@@ -37,25 +39,17 @@ public class DischargeReaction : PolibReactionBase
         if (instance != null && !instance.IsHidden)
         {
             instance.Render();
-            VFXManager.SizeMappings["dischargepuff"] = 2f;
-            VFXManager.SizeMappings["dischargepufflarge"] = 4f;
-            VFXManager.SizeMappings["dischargeblast"] = 2f;
             
             if (action.Level == 0)
             {
                 instance.SpawnAreaDamage();
-
-                VFXManager.EnsureCustomPuffRegistered("DischargePuff", "Puff");
-                instance.DoPuff("DischargePuff", instance.transform, instance.VisualCenterObject.localPosition);
+                instance.SpawnDischargePuff();
             }
             else if (action.Level == 1)
             {
                 VFXManager.ShakeCamera(0.1f, 0.5f);
-
                 instance.SpawnAreaDamage();
-                
-                VFXManager.EnsureCustomPuffRegistered("DischargePuff", "Puff");
-                instance.DoPuff("DischargePuff", instance.transform, instance.VisualCenterObject.localPosition);
+                instance.SpawnDischargePuff();
 
                 foreach (TileData tileNeighbor in GameManager.GameState.Map.GetTileNeighbors(instance.Coordinates))
                 {
@@ -65,12 +59,8 @@ public class DischargeReaction : PolibReactionBase
             else if (action.Level == 2)
             {
                 VFXManager.ShakeCamera(0.1f, 1f);
-
-                VFXManager.EnsureCustomPuffRegistered("DischargePuffLarge", "Puff");
-                instance.DoPuff("DischargePuffLarge", instance.transform, instance.VisualCenterObject.localPosition);
-
-                VFXManager.EnsureCustomPuffRegistered("DischargeBlast", "Blast");
-                instance.DoPuff("DischargeBlast", instance.transform, instance.VisualCenterObject.localPosition);
+                instance.SpawnDischargePuffLarge();
+                instance.SpawnDischargeBlast();
 
                 List<Tile> doneTiles = new();
 
@@ -85,8 +75,6 @@ public class DischargeReaction : PolibReactionBase
                     if (!doneTiles.Contains(MapRenderer.Current.GetTileInstance(tileData.coordinates)))
                     MapRenderer.Current.GetTileInstance(tileData.coordinates).Sway(0.1f);
                 }
-
-
             }
             
             instance.Sway();

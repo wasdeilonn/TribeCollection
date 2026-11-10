@@ -1,4 +1,5 @@
 using Polibrary.PolyScript;
+using TribeCollection.Ancients.Visual;
 
 namespace TribeCollection.Ancients;
 public class ChargeReaction : PolibReactionBase
@@ -40,9 +41,16 @@ public class ChargeReaction : PolibReactionBase
 
             if (action.Positive)
             {
-                VFXManager.EnsureCustomPuffRegistered("ChargePuff", "Puff");
-                instance.DoPuff("ChargePuff", instance.transform, instance.VisualCenterObject.localPosition);
-                AudioManager.PlaySFXAtTile(SFXTypes.Connect, tile.coordinates);
+                instance.SpawnChargePuff();
+
+                if (tile.unit != null && tile.unit.GetChargeCount() == tile.unit.GetMaxCharge())
+                {
+                    AudioManager.PlaySFXAtTile(Main.HighSFX, tile.coordinates);
+                }
+                else
+                {
+                    AudioManager.PlaySFXAtTile(Main.LowSFX, tile.coordinates);
+                }
             }
             else
             {

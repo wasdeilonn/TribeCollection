@@ -7,6 +7,7 @@ namespace TribeCollection.Ancients;
 public class LightningExplosionAction : PolibActionBase
 {
     public WorldCoordinates Coordinates;
+    public int SetDamage = -1;
     public LightningExplosionAction(IntPtr ptr) : base(ptr) {}
     public LightningExplosionAction() {}
     
@@ -22,21 +23,18 @@ public class LightningExplosionAction : PolibActionBase
     
     public override void Execute(GameState state)
     {
-        if (!state.TryGetPlayer(base.PlayerId, out var player))
-        {
-            M.modLogger.LogError("YOU WIN!!");
-            return;
-        }
-
         UnitState unit = state.Map.GetTile(Coordinates).unit;
-        Il2Gen.List<TileData> area = state.Map.GetArea(Coordinates, 1, true, false);
+        Il2Gen.List<TileData> area = state.Map.GetArea(Coordinates, 1, true, true);
 
         foreach (TileData tile in area)
         {
-            if (tile.unit != null && !player.HasPeaceWith(tile.unit.owner) && tile.unit.owner != base.PlayerId)
+            if (tile.unit != null && !tile.unit.IsFriendly(PlayerId, state))
             {
                 BattleResults battleResults2 = BattleHelpers.GetBattleResults(state, unit, tile.unit);
-                state.ActionStack.Add(new AttackAction(base.PlayerId, Coordinates, tile.coordinates, battleResults2.attackDamage, shouldMoveToTarget: false, AttackAction.AnimationType.Splash, 20));
+
+                int dmg = (SetDamage == -1) ? battleResults2.attackDamage : SetDamage;
+
+                state.ActionStack.Add(new AttackAction(base.PlayerId, Coordinates, tile.coordinates, dmg, shouldMoveToTarget: false, AttackAction.AnimationType.Splash, 20));
             }
         }
 
@@ -48,6 +46,8 @@ public class LightningExplosionAction : PolibActionBase
             action.Positive = false;
             state.ActionStack.Add(action);
         }
+
+        unit.RemoveEffect(Main.Conductive);
         
         unit.MakeExhauseted(state);
     }
@@ -56,21 +56,24 @@ public class LightningExplosionAction : PolibActionBase
     {
         writer.Write(PlayerId); //this line is important btw
         Coordinates.Serialize(writer, version);
+        writer.Write(SetDamage);
     }
 
     public override void Deserialize(Il2CppSystem.IO.BinaryReader reader, int version)
     {
         PlayerId = reader.ReadByte(); //leave this line in
         Coordinates.Deserialize(reader, version);
+        SetDamage = reader.ReadInt32();
     }
 
     public override string ToString()
     {
-        return string.Format("{0} (PlayerId: {1}, Coordinates: {2})", new object[]
+        return string.Format("{0} (PlayerId: {1}, Coordinates: {2}, SetDamage: {3})", new object[]
         {
             base.GetType(),
             base.PlayerId,
-            this.Coordinates
+            this.Coordinates,
+            this.SetDamage
         });
     }
 }

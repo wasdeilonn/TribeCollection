@@ -38,6 +38,9 @@ public static class Main
             || !EnumCache<CityReward>.TryGetType("ancteslatower", out TeslaTower)
 
             || !EnumCache<SFXTypes>.TryGetType("lightning", out LightningSFX)
+            || !EnumCache<SFXTypes>.TryGetType("railgun", out RailgunSFX)
+            || !EnumCache<SFXTypes>.TryGetType("low", out LowSFX)
+            || !EnumCache<SFXTypes>.TryGetType("high", out HighSFX)
             )
 		{
 			M.modLogger.LogFatal("Couldnt find EnumCache for ancients!");
@@ -75,6 +78,9 @@ public static class Main
     public static ImprovementAbility.Type LightningImprovement;
     public static ImprovementAbility.Type PowerStorage;
     public static SFXTypes LightningSFX;
+    public static SFXTypes RailgunSFX;
+    public static SFXTypes LowSFX;
+    public static SFXTypes HighSFX;
 
 
     [HarmonyPostfix]
