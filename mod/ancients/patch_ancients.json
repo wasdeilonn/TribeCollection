@@ -253,7 +253,7 @@
 				"scout",
 				"stiff",
 				"static",
-                "anc_unitlightning"
+                "anc_capacitor"
 			],
 			"weapon": 1,
 			"idx": -1,
