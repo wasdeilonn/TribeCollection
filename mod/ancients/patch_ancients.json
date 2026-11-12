@@ -233,9 +233,31 @@
 				"land",
                 "anc_unitlightning"
 			],
+            "embarksTo": "anc_lightningpirate",
 			"weapon": 13,
 			"idx": -1,
             "prefab": "dagger"
+		},
+        "anc_lightningpirate": {
+			"health": 100,
+			"defence": 10,
+			"movement": 2,
+			"range": 1,
+			"attack": 20,
+			"cost": 2,
+			"hidden": true,
+			"unitAbilities": [
+				"dash",
+				"surprise",
+				"static",
+				"water",
+                "swim",
+                "carry",
+                "anc_unitlightning"
+			],
+			"weapon": 13,
+			"idx": -1,
+            "prefab": "pirate"
 		},
         "anc_drone": {
 			"health": 50,
