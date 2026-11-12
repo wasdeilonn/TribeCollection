@@ -23,6 +23,12 @@
     "unit_names_anc__lightningdagger": {
         "English": "Lightning Dagger"
     },
+    "unit_names_anc__drone": {
+        "English": "Drone"
+    },
+    "unit_names_anc__lightningpirate": {
+        "English": "Lightning Pirate"
+    },
 
     "unit_abilities_anc__chargeability": {
         "English": "CHARGE"
