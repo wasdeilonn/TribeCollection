@@ -38,7 +38,8 @@
                 "archer": "anc_lightningarcher",
                 "rider": "anc_lightningrider",
                 "mindbender": "anc_sentry",
-                "swordsman": "anc_accumulator"
+                "swordsman": "anc_accumulator",
+                "cloak": "anc_drone"
             },
             "improvementOverrides":{
                 "mine": "anc_rod",
@@ -235,6 +236,36 @@
 			"weapon": 13,
 			"idx": -1,
             "prefab": "dagger"
+		},
+        "anc_drone": {
+			"health": 50,
+			"defence": 0,
+			"movement": 1,
+			"range": 1,
+			"attack": 20,
+			"cost": 8,
+			"unitAbilities": [
+				"fly",
+                "hide",
+				"creep",
+				"infiltrate",
+				"dash",
+				"scout",
+				"stiff",
+				"static",
+                "anc_unitlightning"
+			],
+			"weapon": 1,
+			"idx": -1,
+            "prefab": "rammership",
+            "maxCharge": 2,
+            "chargeConsumptionAmount": 2,
+            "chargeConsumptionEvent": [
+                "move"
+            ],
+            "chargeBuff": [
+                "movement"
+            ]
 		}
     },
     "unitAbility": {
