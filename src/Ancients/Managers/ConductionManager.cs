@@ -17,7 +17,7 @@ public static class ConductionManager
 
         if (attacker == null || defender == null) return true;
 
-        if (attacker.HasAbility(Main.Shock))
+        if (attacker.HasAbility(Main.Jumpstart))
         {
             CAR.New(out JumpstartAction a);
             a.PlayerId = __instance.PlayerId;
@@ -36,7 +36,7 @@ public static class ConductionManager
         TileData tile = state.Map.GetTile(__instance.Target);
         if (tile.unit.HasEffect(Main.Conductive))
         {
-            CAR.New(out LightningExplosionAction a);
+            CAR.New(out UnitLightningAction a);
             a.PlayerId = __instance.PlayerId;
             a.Coordinates = tile.coordinates;
             a.SetDamage = 50;

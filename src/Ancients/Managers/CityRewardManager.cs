@@ -7,14 +7,14 @@ using Polibrary;
 
 namespace TribeCollection.Ancients;
 
-public static class RewardManager
+public static class CityRewardManager
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(CityRewardAction), nameof(CityRewardAction.Execute))]
     private static void CityRewardAction_Execute(CityRewardAction __instance, GameState state)
     {
         TileData tile = state.Map.GetTile(__instance.Coordinates);
-        if(__instance.Reward == EnumCache<CityReward>.GetType("ancfreetech"))
+        if(__instance.Reward == Main.Manuscript)
         {
             if (tile == null || tile.improvement == null
                 || !state.TryGetPlayer(__instance.PlayerId, out PlayerState playerState))
@@ -35,7 +35,7 @@ public static class RewardManager
             if(capital.improvement.rewards == null)
                 capital.improvement.rewards = new();
 
-            capital.improvement.rewards.Add(EnumCache<CityReward>.GetType("ancinternal_tech"));
+            capital.improvement.rewards.Add(Main.InternalTech);
         }
     }
 
@@ -72,7 +72,7 @@ public static class RewardManager
         if(!tile.HasImprovement(ImprovementData.Type.City))
             return;
 
-        CityReward hammer = EnumCache<CityReward>.GetType("anchammer");
+        CityReward hammer = Main.Hammer;
         if(!tile.improvement.HasReward(hammer))
             return;
 
@@ -147,7 +147,7 @@ public static class RewardManager
             }
         }
 
-        if(__instance.action.Reward == EnumCache<CityReward>.GetType("anchammer"))
+        if(__instance.action.Reward == Main.Hammer)
         {
             TileData tileData = GameManager.GameState.Map.GetTile(__instance.action.Coordinates);
             Tile tile = tileData.GetInstance();

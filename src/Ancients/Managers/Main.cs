@@ -15,37 +15,36 @@ public static class Main
     [HarmonyPatch(typeof(GameLogicData), nameof(GameLogicData.AddGameLogicPlaceholders))]
     public static void Register(Newtonsoft.Json.Linq.JObject rootObject)
     {
-        if (
-            !EnumCache<UnitAbility.Type>.TryGetType("charge_ability", out Charge) 
-            || !EnumCache<UnitAbility.Type>.TryGetType("discharge_ability", out Discharge)
-            || !EnumCache<UnitAbility.Type>.TryGetType("capacitor_ability", out Capacitor)
-            || !EnumCache<UnitAbility.Type>.TryGetType("shock_ability", out Shock) 
-            || !EnumCache<UnitAbility.Type>.TryGetType("protect_ability", out Protect) 
-            || !EnumCache<UnitAbility.Type>.TryGetType("push_ability", out Push) 
-            || !EnumCache<UnitAbility.Type>.TryGetType("lightning_ability", out LightningExplosion) 
+        Ancients.Get("ancients");
 
-            || !EnumCache<UnitEffect>.TryGetType("conductive_effect", out Conductive)
-            || !EnumCache<UnitEffect>.TryGetType("charge_effect", out Charged)
-            || !EnumCache<UnitEffect>.TryGetType("hammercharged", out Hammered)
+        Techless.Get("anc_techless");
 
-            || !EnumCache<ImprovementAbility.Type>.TryGetType("lightning_improvementability", out LightningImprovement)
-            || !EnumCache<ImprovementAbility.Type>.TryGetType("powerstorage_improvementability", out PowerStorage)
+        Charge.Get("anc_chargeability");
+        Discharge.Get("anc_discharge");
+        Capacitor.Get("anc_capacitor");
+        Jumpstart.Get("anc_jumpstart");
+        Protect.Get("anc_protect");
+        Push.Get("anc_push");
+        UnitLightning.Get("anc_unitlightning");
 
-            || !EnumCache<TribeType>.TryGetType("ancients", out Ancients)
+        Charged.Get("anc_chargeeffect");
+        Conductive.Get("anc_conductive");
+        Hammered.Get("anc_hammercharged");
 
-            || !EnumCache<TileData.EffectType>.TryGetType("powerstored", out PowerStored)
+        PowerStored.Get("anc_powerstored");
 
-            || !EnumCache<CityReward>.TryGetType("ancteslatower", out TeslaTower)
+        ImprovementLightning.Get("anc_improvementlightning");
+        PowerStorage.Get("anc_powerstorage");
 
-            || !EnumCache<SFXTypes>.TryGetType("lightning", out LightningSFX)
-            || !EnumCache<SFXTypes>.TryGetType("railgun", out RailgunSFX)
-            || !EnumCache<SFXTypes>.TryGetType("low", out LowSFX)
-            || !EnumCache<SFXTypes>.TryGetType("high", out HighSFX)
-            )
-		{
-			M.modLogger.LogFatal("Couldnt find EnumCache for ancients!");
-			return;
-		}
+        TeslaTower.Get("anc_teslatower");
+        Hammer.Get("anc_hammer");
+        InternalTech.Get("anc_internaltech");
+        Manuscript.Get("anc_freetech");
+
+        LightningSFX.Get("lightning");
+        RailgunSFX.Get("railgun");
+        LowSFX.Get("low");
+        HighSFX.Get("high");
         
         PolibUtils.ParsePerEach<UnitData.Type, int>(rootObject, "unitData", "maxCharge", MaxCharge);
         PolibUtils.ParsePerEach<UnitData.Type, int>(rootObject, "unitData", "chargeConsumptionAmount", ChargeConsumptionAmount);
@@ -61,93 +60,39 @@ public static class Main
     public static Dictionary<UnitData.Type, List<string>> ChargeBuff = new Dictionary<UnitData.Type, List<string>>();
     public static Dictionary<ImprovementData.Type, int> LightningStars = new();
     public static Dictionary<ImprovementData.Type, int> LightningPop = new();
+
     public static TribeType Ancients;
+
+    public static TribeAbility.Type Techless;
+
     public static UnitAbility.Type Charge;
     public static UnitAbility.Type Discharge;
     public static UnitAbility.Type Capacitor;
-    public static UnitAbility.Type Shock;
+    public static UnitAbility.Type Jumpstart;
     public static UnitAbility.Type Protect;
     public static UnitAbility.Type Push;
-    public static UnitAbility.Type LightningExplosion;
+    public static UnitAbility.Type UnitLightning;
+
     public static UnitEffect Charged;
     public static UnitEffect Conductive;
     public static UnitEffect Hammered;
-    public static CityReward TeslaTower;
+
     public static TileData.EffectType PowerStored;
 
-    public static ImprovementAbility.Type LightningImprovement;
+    public static ImprovementAbility.Type ImprovementLightning;
     public static ImprovementAbility.Type PowerStorage;
+
+    public static CityReward TeslaTower;
+    public static CityReward Hammer;
+    public static CityReward Manuscript;
+    public static CityReward InternalTech;
+
     public static SFXTypes LightningSFX;
     public static SFXTypes RailgunSFX;
     public static SFXTypes LowSFX;
     public static SFXTypes HighSFX;
 
 
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(CommandUtils), nameof(CommandUtils.GetUnitActions))]
-    private static void AddCommands(ref Il2Gen.List<CommandBase> __result, GameState gameState, PlayerState player, TileData tile, bool includeUnavailable)
-    {
-        if (tile.unit == null || tile.unit.owner != player.Id) return;
-
-        if (tile.unit.HasAbility(Discharge) && tile.unit.HasAbility(Capacitor) && !tile.unit.moved && !tile.unit.attacked && ChargeManager.GetChargeCount(tile.unit) > 0)
-        {
-            CAR.New<DischargeCommand>(out var command);
-            command.Coordinates = tile.coordinates;
-            command.PlayerId = player.Id;
-            command.Level = ChargeManager.GetChargeCount(tile.unit) - 1; //subtract 1 cause its 0 based
-            CommandUtils.AddCommand(gameState, __result, command, includeUnavailable);
-        }
-
-        if (tile.unit.HasAbility(LightningExplosion) && ((!tile.unit.attacked && !tile.unit.moved) || tile.unit.HasAbility(UnitAbility.Type.Dash)))
-        {
-            bool flag = false;
-            if (tile.unit.HasAbility(Capacitor))
-            {
-                if (ChargeManager.GetChargeCount(tile.unit) > 0)
-                {
-                    flag = true;
-                }
-            }
-            else
-            {
-                flag = true;
-            }
-
-            if (flag)
-            {
-                CAR.New(out LightningExplosionCommand command);
-                command.Coordinates = tile.coordinates;
-                command.PlayerId = player.Id;
-                CommandUtils.AddCommand(gameState, __result, command, includeUnavailable);
-            }
-        }
-    }
-
-    
-
-	[HarmonyPostfix]
-    [HarmonyPatch(typeof(UnitDataExtensions), nameof(UnitDataExtensions.GetAttackOptionsAtPosition))]
-    private static void UnitDataExtensions_GetAttackOptionsAtPosition(ref Il2Gen.List<WorldCoordinates> __result, GameState gameState, byte playerId, WorldCoordinates position, int range, bool includeHiddenTiles = false, UnitState customUnitState = null, bool ignoreDiplomacyRelation = false)
-	{
-        if (!gameState.TryGetPlayer(playerId, out var player)) return;
-
-        UnitState unit = gameState.Map.GetTile(position).unit;
-        if (unit == null) return;
-
-        if (unit.HasAbility(UnitAbility.Type.Consumed) && unit.UnitData.attack == 0 && !unit.HasAbility(UnitAbility.Type.Convert))
-        {
-            Il2Gen.List<TileData> area = gameState.Map.GetArea(position, range, allowDiagonal: true, includeCenter: false);
-            foreach (TileData tileData in area)
-            {
-                UnitState unit1 = tileData.GetUnit(gameState, playerId, includeHiddenTiles);
-                if (unit1 != null && (tileData.GetExplored(playerId) || includeHiddenTiles) && unit1.owner != playerId && !player.HasPeaceWith(unit1.owner))
-                {
-                    __result.Add(tileData.coordinates);
-                }
-            }
-        }
-	}
-    
     [HarmonyPrefix]
     [HarmonyPatch(typeof(ActionUtils), nameof(ActionUtils.KillUnit))]
     private static bool ActionUtils_KillUnit_NullCheck(GameState gameState, TileData tile) //why does this not have a nullcheck ingame??

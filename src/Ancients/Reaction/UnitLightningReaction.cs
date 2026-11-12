@@ -4,21 +4,21 @@ using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
-public class LightningExplosionReaction : PolibReactionBase
+public class UnitLightningReaction : PolibReactionBase
 {
-    protected LightningExplosionAction action;
+    protected UnitLightningAction action;
     public override ActionBase actionProperty 
     { 
         get => this.action; 
         set
         {
-            LightningExplosionAction LightningExplosionAction = value.TryCast<LightningExplosionAction>();
+            UnitLightningAction LightningExplosionAction = value.TryCast<UnitLightningAction>();
             if (LightningExplosionAction != null)
             this.action = LightningExplosionAction;
         } 
     }
-    public LightningExplosionReaction(IntPtr ptr) : base(ptr) {}
-    public LightningExplosionReaction(LightningExplosionAction action)
+    public UnitLightningReaction(IntPtr ptr) : base(ptr) {}
+    public UnitLightningReaction(UnitLightningAction action)
     {
         this.action = action;
     }

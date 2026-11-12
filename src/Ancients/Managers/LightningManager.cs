@@ -15,9 +15,9 @@ public static class LightningManager
         {
             if (tile.improvement != null && tile.owner == __instance.PlayerId)
             {
-                if (gameState.GameLogicData.GetImprovementData(tile.improvement.type).HasAbility(Main.LightningImprovement))
+                if (gameState.GameLogicData.GetImprovementData(tile.improvement.type).HasAbility(Main.ImprovementLightning))
                 {
-                    CAR.New(out LightningStrikeAction action);
+                    CAR.New(out ImprovementLightningAction action);
                     action.PlayerId = __instance.PlayerId;
                     action.Coordinates = tile.coordinates;
                     gameState.ActionStack.Add(action);

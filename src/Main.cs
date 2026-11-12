@@ -4,6 +4,7 @@ using Il2CppInterop.Runtime.Injection;
 using TribeCollection.Ancients.Visual;
 using Il2Gen = Il2CppSystem.Collections.Generic;
 using UnityEngine;
+using Polytopia.Data;
 
 namespace TribeCollection;
 
@@ -32,9 +33,11 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Ancients.PushManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.RedirectionManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.TechManager));
-        Harmony.CreateAndPatchAll(typeof(Ancients.RewardManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.CityRewardManager));
+        Harmony.CreateAndPatchAll(typeof(Ancients.UnitAbilityManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.Visual.Glow));
         Harmony.CreateAndPatchAll(typeof(Ancients.Visual.House));
+        
         PolyMod.Loader.AddPatchDataType("sfx", typeof(SFXTypes));
         PolyMod.Loader.AddPatchDataType("improvementEffect", typeof(ImprovementEffect));
 
@@ -104,5 +107,14 @@ public static class Main
             return true;
         }
         return false;
+    }
+    public static void Get<T>(ref this T type, string name)
+    where T : struct
+    {
+        if (!EnumCache<T>.TryGetType(name, out type))
+        {
+            modLogger.LogFatal($"Can't find {name}");
+            return;
+        }
     }
 }

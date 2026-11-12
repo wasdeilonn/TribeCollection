@@ -2,11 +2,11 @@ using Polibrary.PolyScript;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
-public class LightningExplosionCommand : PolibCommandBase
+public class UnitLightningCommand : PolibCommandBase
 {
     public WorldCoordinates Coordinates;
-    public LightningExplosionCommand(System.IntPtr ptr) : base(ptr) {}
-    public LightningExplosionCommand() {}
+    public UnitLightningCommand(System.IntPtr ptr) : base(ptr) {}
+    public UnitLightningCommand() {}
     public override void ExecuteNew(GameState state)
     {
         UnitState unit = state.Map.GetTile(Coordinates).unit;
@@ -16,7 +16,7 @@ public class LightningExplosionCommand : PolibCommandBase
             state.ActionStack.Add(new KillUnitAction(PlayerId, Coordinates));
         }
 
-        CAR.New(out LightningExplosionAction action);
+        CAR.New(out UnitLightningAction action);
         action.PlayerId = PlayerId;
         action.Coordinates = Coordinates;
         state.ActionStack.Add(action);
@@ -34,7 +34,7 @@ public class LightningExplosionCommand : PolibCommandBase
     
     public override CommandType GetCommandType()
     {
-        CommandType type = EnumCache<CommandType>.GetType("lightningexplosioncommand");
+        CommandType type = EnumCache<CommandType>.GetType("unitlightningcommand");
         return type;
     }
 

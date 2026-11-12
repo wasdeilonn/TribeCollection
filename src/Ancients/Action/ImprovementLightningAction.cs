@@ -4,14 +4,14 @@ using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
-public class LightningStrikeAction : PolibActionBase
+public class ImprovementLightningAction : PolibActionBase
 {
     public WorldCoordinates Coordinates;
     public List<WorldCoordinates> ToAnimate = new();
-    public LightningStrikeAction(IntPtr ptr) : base(ptr) {}
-    public LightningStrikeAction() {}
+    public ImprovementLightningAction(IntPtr ptr) : base(ptr) {}
+    public ImprovementLightningAction() {}
 
-    public LightningStrikeAction(byte playerId, WorldCoordinates coordinates) 
+    public ImprovementLightningAction(byte playerId, WorldCoordinates coordinates) 
     : base(playerId)
     {
         base.PlayerId = playerId;
@@ -25,7 +25,7 @@ public class LightningStrikeAction : PolibActionBase
 
     public override ActionType GetActionType()
     {
-        return EnumCache<ActionType>.GetType("lightningstrikeaction");
+        return EnumCache<ActionType>.GetType("improvementlightningaction");
     }
     
     public override void Execute(GameState state)

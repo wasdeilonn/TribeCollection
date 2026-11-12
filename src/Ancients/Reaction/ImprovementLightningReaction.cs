@@ -4,23 +4,23 @@ using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
-public class LightningStrikeReaction : PolibReactionBase
+public class ImprovementLightningReaction : PolibReactionBase
 {
-    protected LightningStrikeAction action;
+    protected ImprovementLightningAction action;
     public override ActionBase actionProperty 
     { 
         get => this.action; 
         set
         {
-            LightningStrikeAction LightningStrikeAction = value.TryCast<LightningStrikeAction>();
+            ImprovementLightningAction LightningStrikeAction = value.TryCast<ImprovementLightningAction>();
             if (LightningStrikeAction != null)
             this.action = LightningStrikeAction;
             else
             M.modLogger.LogInfo("shits fucked");
         } 
     }
-    public LightningStrikeReaction(IntPtr ptr) : base(ptr) {}
-    public LightningStrikeReaction(LightningStrikeAction action)
+    public ImprovementLightningReaction(IntPtr ptr) : base(ptr) {}
+    public ImprovementLightningReaction(ImprovementLightningAction action)
     {
         this.action = action;
     }

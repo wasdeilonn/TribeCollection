@@ -4,12 +4,12 @@ using Il2Gen = Il2CppSystem.Collections.Generic;
 using M = TribeCollection.Main;
 
 namespace TribeCollection.Ancients;
-public class LightningExplosionAction : PolibActionBase
+public class UnitLightningAction : PolibActionBase
 {
     public WorldCoordinates Coordinates;
     public int SetDamage = -1;
-    public LightningExplosionAction(IntPtr ptr) : base(ptr) {}
-    public LightningExplosionAction() {}
+    public UnitLightningAction(IntPtr ptr) : base(ptr) {}
+    public UnitLightningAction() {}
     
     public override bool IsValid(GameState state)
     {
@@ -18,7 +18,7 @@ public class LightningExplosionAction : PolibActionBase
 
     public override ActionType GetActionType()
     {
-        return EnumCache<ActionType>.GetType("lightningexplosionaction");
+        return EnumCache<ActionType>.GetType("unitlightningaction");
     }
     
     public override void Execute(GameState state)

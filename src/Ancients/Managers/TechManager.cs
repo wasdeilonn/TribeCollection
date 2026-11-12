@@ -78,7 +78,7 @@ public static class TechManager
             return;
         }
 
-        capital.improvement.rewards.Remove(EnumCache<CityReward>.GetType("ancinternal_tech"));
+        capital.improvement.rewards.Remove(Main.InternalTech);
     }
 
     private static bool? HasFreeTech(GameState state, PlayerState playerState)
@@ -89,7 +89,7 @@ public static class TechManager
         if(!state.GameLogicData.TryGetData(playerState.tribe, out TribeData tribeData))
             return null;
 
-        if(!tribeData.HasAbility(EnumCache<TribeAbility.Type>.GetType("anctechless")))
+        if(!tribeData.HasAbility(Main.Techless))
             return null;
 
         TileData capital = state.Map.GetTile(playerState.startTile);
@@ -99,6 +99,6 @@ public static class TechManager
             return null;
         }
 
-        return capital.improvement.HasReward(EnumCache<CityReward>.GetType("ancinternal_tech"));
+        return capital.improvement.HasReward(Main.InternalTech);
     }
 }
