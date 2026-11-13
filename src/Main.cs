@@ -37,6 +37,7 @@ public static class Main
         Harmony.CreateAndPatchAll(typeof(Ancients.UnitAbilityManager));
         Harmony.CreateAndPatchAll(typeof(Ancients.Visual.Glow));
         Harmony.CreateAndPatchAll(typeof(Ancients.Visual.House));
+        Harmony.CreateAndPatchAll(typeof(Ancients.Visual.ChargeUI));
         
         PolyMod.Loader.AddPatchDataType("sfx", typeof(SFXTypes));
         PolyMod.Loader.AddPatchDataType("improvementEffect", typeof(ImprovementEffect));
