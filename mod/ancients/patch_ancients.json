@@ -28,6 +28,7 @@
                 "anc_techless"
             ],
             "techOverrides":{
+                
             },
             "unitOverrides":{
                 "warrior": "anc_lightningwarrior",
